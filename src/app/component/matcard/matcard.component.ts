@@ -13,7 +13,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
 })
 export class MatcardComponent {
  @Input({required: true}) docente!: Docente;
- @Output() select = new EventEmitter();
+ @Output() select = new EventEmitter<number>();
 
  onSelect(){
    this.select.emit(this.docente.id);

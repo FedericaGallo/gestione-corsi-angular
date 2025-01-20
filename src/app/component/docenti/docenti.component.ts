@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class DocentiComponent {
   docenti: Docente[] = [];
+  selectedDocente: number = 0;
 constructor(private docentiService: DocentiService) { }
 
 ngOnInit(){
@@ -20,5 +21,11 @@ ngOnInit(){
   console.log(this.docenti);
   }
 onSelectD(id: number){
-  console.log(id)}
+  this.selectedDocente = id;
+  console.log(this.selectedDocente + " " +id);
+  console.log(this.getSelectedDocente());}
+
+getSelectedDocente(){
+  return this.docenti.find((docente)=> docente.id === this.selectedDocente);
+  }
 }
