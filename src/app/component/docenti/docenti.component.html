@@ -1,0 +1,11 @@
+<p>docenti works!</p>
+<ul>
+  <li *ngFor="let d of docenti">{{d.nome}}</li>
+</ul>
+
+<ul>
+  <li *ngFor="let d of docenti; let i = index ">
+
+    <app-matcard (select)="onSelectD($event)" [docente]="docenti[i]"></app-matcard>
+  </li>
+</ul>
