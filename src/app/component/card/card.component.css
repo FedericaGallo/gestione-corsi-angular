@@ -1,0 +1,30 @@
+.d-flex {
+display: flex;
+background-color: white;
+margin-bottom: 10px;
+padding: 5px;
+border-radius: 3px;
+}
+
+.d-flex:hover{
+background-color: #b3b3ff;
+}
+
+img {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.avatar {
+width: 20%;
+}
+
+.details {
+width: 80%;
+}
+
+.active {
+background-color: #b3b3ff;
+}

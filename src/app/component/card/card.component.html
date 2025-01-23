@@ -1,0 +1,9 @@
+
+<div [class.active]="selected" class="d-flex" (click)="onSelect()">
+<div class="avatar">
+  <img [src]="'assets/' + docente.photo">
+</div>
+  <div class="details">
+  <p>{{docente.nome + " " + docente.cognome}}</p>
+</div>
+</div>

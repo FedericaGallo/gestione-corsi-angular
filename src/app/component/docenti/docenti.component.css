@@ -1,1 +1,14 @@
+.container {
+width: 1400px;
+margin: 0 auto;
+}
+
+.d-flex {
+display: flex;}
+
+.list {
+ width: 30%}
+
+.details {
+width: 70%}
 

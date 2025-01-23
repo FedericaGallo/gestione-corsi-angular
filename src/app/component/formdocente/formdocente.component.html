@@ -1,0 +1,19 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <p>
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="nome" name="nome" id="nome">
+    </p>
+    <p>
+      <label>Cognome</label>
+      <input type="text" [(ngModel)]="cognome" name="cognome" id="cognome">
+    </p>
+    <p>
+      <label></label>
+      <input>
+    </p>
+  </div>
+  <p>
+    <button>salva</button>
+  </p>
+</form>

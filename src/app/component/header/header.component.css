@@ -1,0 +1,32 @@
+div {
+height: 50px;
+margin: 0px;
+padding: 0px;
+}
+li {
+text-transform: uppercase;
+margin: 0 15px;
+height: 100%;
+line-height: 50px;
+}
+li:hover{
+background-color: yellow;
+}
+ul {
+height: 50px;
+margin: 0px;
+padding: 0px;
+display: flex;
+justify-content: center;
+align-items: center;
+list-style-type: none;
+
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+a:hover {
+color: blue;
+}

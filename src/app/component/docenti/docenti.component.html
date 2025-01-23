@@ -1,11 +1,22 @@
-<p>docenti works!</p>
-<ul>
-  <li *ngFor="let d of docenti">{{d.nome}}</li>
-</ul>
+<div class="container">
 
-<ul>
-  <li *ngFor="let d of docenti; let i = index ">
+  <div class="d-flex">
+    <div class="list">
 
-    <app-matcard (select)="onSelectD($event)" [docente]="docenti[i]"></app-matcard>
-  </li>
-</ul>
+      <!-- <app-card @for (docente of docenti; track d.id) (select)="onSelectD($event)"
+                 [docente]="docente"></app-card>
+       <app-card *ngFor="let d of docenti; let i = index "(select)="onSelectD($event)"
+                 [docente]="docenti[i]"></app-card>-->
+      <app-card *ngFor="let docente of docenti" (select)="onSelectD($event)"
+                [docente]="docente" [selected]="docente.id===selectedDocente"></app-card>
+
+    </div>
+    <div class="details">
+
+        <app-dettagli [selectedDocente]="getSelectedDocente()"></app-dettagli>
+
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,12 @@
+<div>
+  <div *ngIf="selectedDocente; else noDocente">
+    <h1>{{selectedDocente.nome + " " + selectedDocente.cognome}}</h1>
+    <img [src]="'assets/' + selectedDocente.photo">
+
+  </div>
+  <ng-template #noDocente>
+    <p>Nessun docente selezionato.</p>
+  </ng-template>
+
+
+</div>
