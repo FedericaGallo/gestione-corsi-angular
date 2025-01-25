@@ -7,13 +7,13 @@
                  [docente]="docente"></app-card>
        <app-card *ngFor="let d of docenti; let i = index "(select)="onSelectD($event)"
                  [docente]="docenti[i]"></app-card>-->
-      <app-card *ngFor="let docente of docenti" (select)="onSelectD($event)"
+      <app-card *ngFor="let docente of docenti()" (select)="onSelectedDocente($event)"
                 [docente]="docente" [selected]="docente.id===selectedDocente"></app-card>
 
     </div>
     <div class="details">
 
-        <app-dettagli [selectedDocente]="getSelectedDocente()"></app-dettagli>
+        <app-dettagli [selectedDocente]="selectedDocenteObject"></app-dettagli>
 
     </div>
   </div>

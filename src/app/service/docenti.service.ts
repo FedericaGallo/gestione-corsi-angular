@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { signal } from '@angular/core';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 export interface Docente {
   id: number;
@@ -12,22 +15,20 @@ export interface Docente {
   providedIn: 'root'
 })
 export class DocentiService {
-private docenti: Docente[]= [
+  docenti = signal<Docente[] | null | undefined>(undefined);
+/*private docenti: Docente[] | null = [
   {id: 1, nome: 'Albert', cognome: 'Einstein', photo: 'AlbertEinstein.jpg'},
   {id: 2, nome: 'Marie', cognome: 'Curie', photo: 'mariecurie.jpg'},
   {id: 3, nome: 'Isaac', cognome: 'Newton', photo: 'Newton.jpg'}
-  ]
+  ]*/
+
 constructor(private httpClient : HttpClient) {}
 
   getDocenti(){
-    return this.docenti;
+    return this.docenti();
     }
 
-  getDocenteById(id: number){
-    return this.docenti.find(corso => corso.id === id);
-    }
-
-/*getDocentir() {
+/*getDocenti() {
    const subscribtion = this.httpClient.get<{docenti : Docente[]}>('http://localhost:8080/docente/findAll', {observe: 'response'}).subscribe({
       next: (response) => {
         console.log(response.body?.docenti);
@@ -36,21 +37,15 @@ constructor(private httpClient : HttpClient) {}
       });
 }*/
 
-getDocentir() {
-   const subscribtion = this.httpClient.get<{docenti : Docente[]}>('http://localhost:8080/docente/findAll', {observe: 'response'}).subscribe({
-      next: (response) => {
-        console.log(response.body);
-        console.log(response.status);
-        }
-      });
+loadDocenti(){
+  return this.fetchDocenti('http://localhost:8080/docente/findAll','errore nella chiamata al server')
+  }
+
+// 'operatore catchError intercetta eventuali errori che potrebbero verificarsi durante la richiesta HTTP. throwError restituisce un observable che emette un errore.
+private fetchDocenti(url: string, errorMessage: string) {
+   return this.httpClient.get<Docente[]>(url, {observe: 'response'})
+      .pipe(catchError((error: any)=>{
+        return throwError(() => new Error(errorMessage))}));
 }
 
-getDocentiT() {
-   const subscribtion = this.httpClient.get<{docente : Docente}>('http://localhost:8080/docente/prova', {observe: 'response'}).subscribe({
-      next: (response) => {
-        console.log(response.body);
-        console.log(response.status);
-        }
-      });
-}
 }

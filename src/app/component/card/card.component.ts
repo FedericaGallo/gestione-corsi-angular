@@ -24,6 +24,5 @@ export class CardComponent {
 
  onSelect(){
    this.select.emit(this.docente.id);
-   console.log("ciao");
    }
 }
