@@ -7,5 +7,5 @@ export const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'docenti', component: DocentiComponent},
   {path: 'form', component: FormdocenteComponent},
-  {path: 'docenti', component: DocentiComponent},
+  {path: 'docenti/:id', component: FormdocenteComponent},
   ];

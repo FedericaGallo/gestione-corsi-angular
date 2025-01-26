@@ -42,6 +42,7 @@ ngOnInit(){
 
   }
 onSelectedDocente(id: number){
+  this.selectedDocente = id;
   const docentiArray = this.docenti();
   if(docentiArray){
  this.selectedDocenteObject = docentiArray.find((docente)=> docente.id === id);

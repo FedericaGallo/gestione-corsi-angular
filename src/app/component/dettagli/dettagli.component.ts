@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Docente } from '../../service/docenti.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-dettagli',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dettagli.component.html',
   styleUrl: './dettagli.component.css'
 })
