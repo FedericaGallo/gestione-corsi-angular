@@ -1,14 +1,13 @@
 import { Component, input, DestroyRef } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { DocentiService, DocenteCorsi } from '../../service/docenti.service';
 import { signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RowcorsoComponent } from '../rowcorso/rowcorso.component';
 
 @Component({
   selector: 'app-docente',
   standalone: true,
-  imports: [RouterOutlet, RowcorsoComponent, CommonModule],
+  imports: [RouterOutlet, CommonModule, RouterLink],
   templateUrl: './docente.component.html',
   styleUrl: './docente.component.css'
 })

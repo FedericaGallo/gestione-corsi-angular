@@ -10,13 +10,12 @@
   </tr>
   </thead>
   <tbody>
-  <ng-container *ngIf="docente() && docente()?.corsi">
-    <app-rowcorso *ngFor="let corso of docente()?.corsi"
-                  [nomeCorso]="corso.nomeCorso"
-                  [dataInizio]="corso.dataInizio"
-                  [durata]="corso.durata">
-    </app-rowcorso>
-  </ng-container>
+    <tr *ngFor="let corso of docente()?.corsi">
+      <td>{{corso.nomeCorso}}</td>
+      <td>{{corso.dataInizio}}</td>
+      <td>{{corso.durata}}</td>
+    </tr>
   </tbody>
 </table>
+<a [routerLink]="['/docenti', id(), 'addCorso']" >aggiungi corso</a>
 <router-outlet></router-outlet>

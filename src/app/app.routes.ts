@@ -3,6 +3,7 @@ import { HomeComponent } from './component/home/home.component';
 import { DocentiComponent } from './component/docenti/docenti.component';
 import { DocenteComponent } from './component/docente/docente.component';
 import { FormdocenteComponent } from './component/formdocente/formdocente.component';
+import { AddcorsoComponent } from './component/addcorso/addcorso.component';
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -15,8 +16,8 @@ export const routes: Routes = [
        component: FormdocenteComponent,
        },
        {
-         path: 'add/corso',
-       component: FormdocenteComponent,
+         path: 'addCorso',
+       component: AddcorsoComponent,
        }
 
        ]
