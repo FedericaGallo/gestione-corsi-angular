@@ -1,0 +1,22 @@
+<p>docente works!</p>
+<p>{{id()}}</p>
+<h1>{{docente() ? docente()!.nome + " " + docente()!.cognome : "Docente non disponibile"}}</h1>
+<table>
+  <thead>
+  <tr>
+    <th>nome</th>
+    <th>data inizio</th>
+    <th>durata</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngIf="docente() && docente()?.corsi">
+    <app-rowcorso *ngFor="let corso of docente()?.corsi"
+                  [nomeCorso]="corso.nomeCorso"
+                  [dataInizio]="corso.dataInizio"
+                  [durata]="corso.durata">
+    </app-rowcorso>
+  </ng-container>
+  </tbody>
+</table>
+<router-outlet></router-outlet>

@@ -1,12 +1,12 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <div class="input-group">
     <p>
       <label>Nome</label>
-      <input type="text" [(ngModel)]="nome" name="nome" id="nome">
+      <input type="text" ngModel name="nome" id="nome" required #nome="ngModel">
     </p>
     <p>
       <label>Cognome</label>
-      <input type="text" [(ngModel)]="cognome" name="cognome" id="cognome">
+      <input type="text" ngModel name="cognome" id="cognome" required #cognome="ngModel">
     </p>
     <p>
       <label></label>
@@ -16,4 +16,7 @@
   <p>
     <button>salva</button>
   </p>
+ <p *ngIf ="form.form.touched && form.form.invalid">
+   invalid values detected
+ </p>
 </form>

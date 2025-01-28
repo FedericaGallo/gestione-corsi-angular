@@ -1,6 +1,8 @@
 <div class="container">
 
   <div class="d-flex">
+    <p *ngIf="isFetching() && !error()">...</p>
+    <p *ngIf="error()">{{error()}}</p>
     <div class="list">
 
       <!-- <app-card @for (docente of docenti; track d.id) (select)="onSelectD($event)"

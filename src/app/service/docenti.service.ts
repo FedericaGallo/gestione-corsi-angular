@@ -11,6 +11,20 @@ export interface Docente {
   photo: string;
   }
 
+export interface DocenteCorsi {
+  id: number;
+  nome: string;
+  cognome: string;
+  corsi: Corso[];
+  }
+
+export interface Corso {
+  id: number;
+  nomeCorso: string;
+  dataInizio: string;
+  durata: string;
+  }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,5 +61,11 @@ private fetchDocenti(url: string, errorMessage: string) {
       .pipe(catchError((error: any)=>{
         return throwError(() => new Error(errorMessage))}));
 }
+
+public fetchDocente(url: string) {
+   return this.httpClient.get<DocenteCorsi>(url, {observe: 'response'})
+      .pipe(catchError((error: any)=>{
+        return throwError(() => error);
+}))}
 
 }

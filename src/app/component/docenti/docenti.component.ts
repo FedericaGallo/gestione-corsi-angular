@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { DocentiService, Docente } from '../../service/docenti.service';
 import { CommonModule } from '@angular/common';
 //import { MatcardComponent } from '../matcard/matcard.component';
@@ -21,32 +21,38 @@ export class DocentiComponent {
    selectedDocente: number = 0;
    selectedDocenteObject!: Docente | undefined;
    isFetching = signal(false);
+   error = signal('');
   //selectedDocenteOb: Docente;
   //grazie al costruttore avviene l'iniezione delle dipendenze
-constructor(private docentiService: DocentiService) { }
+constructor(private docentiService: DocentiService, private destroyRef: DestroyRef) { }
 // private docentiService = inject(DocentiService); in alternariva si puo usare questa sintassi per l'iniezione delle dipendenze
 
 ngOnInit(){
   this.isFetching.set(true);
-  this.docentiService.loadDocenti().subscribe({
+const subscription = this.docentiService.loadDocenti().subscribe({
     next: (response) => {
             //console.log(response.body);
-            console.log(response.status);
+            //console.log(response.status);
             this.docenti.set(response.body);
-            console.log(this.docenti());
+            //console.log(this.docenti());
+            },
+          error: (error)=> {
+            this.error.set(error.message);
             },
           complete: ()=>{
             this.isFetching.set(false);
             }
     });
-
+this.destroyRef.onDestroy(() => {
+  subscription.unsubscribe();
+  })
   }
 onSelectedDocente(id: number){
   this.selectedDocente = id;
   const docentiArray = this.docenti();
   if(docentiArray){
  this.selectedDocenteObject = docentiArray.find((docente)=> docente.id === id);
- console.log(this.selectedDocenteObject);
+ //console.log(this.selectedDocenteObject);
   }
 }
 }
