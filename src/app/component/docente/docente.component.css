@@ -1,3 +1,14 @@
+.container {
+width: 1400px;
+margin: 0 auto;
+height: calc(100vh - 50px);
+}
+
+h1 {
+margin: 0px;
+padding: 10px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -13,3 +24,16 @@ table {
   tr {
    width: 100%;
   }
+.button {
+  background-color: #f8f2f2;
+  border: none;
+  border-radius: 4px;
+  color: #011627;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}

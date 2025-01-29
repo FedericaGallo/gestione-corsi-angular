@@ -1,15 +1,22 @@
 .container {
 width: 1400px;
 margin: 0 auto;
+height: calc(100vh - 50px);
 }
 
 .d-flex {
-display: flex;}
+display: flex;
+padding-top: 15px;
+padding-bottom: 15px;
+}
 
 .list {
- width: 30%}
+height: calc(100vh - 80px);
+ width: 30%;
+ overflow-y: scroll;}
 
 .details {
-width: 70%}
+width: 70%;
+}
 
 

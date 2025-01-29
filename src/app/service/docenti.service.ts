@@ -22,7 +22,7 @@ export interface Corso {
   id: number;
   nomeCorso: string;
   dataInizio: string;
-  durata: string;
+  dataFine: string;
   }
 
 @Injectable({

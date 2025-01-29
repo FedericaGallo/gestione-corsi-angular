@@ -3,7 +3,7 @@
 <div class="avatar">
   <img [src]="'assets/' + docente.photo">
 </div>
-  <div class="details">
+  <div class="details" [class.active]="selected">
   <p>{{docente.nome + " " + docente.cognome}}</p>
 </div>
 </div>

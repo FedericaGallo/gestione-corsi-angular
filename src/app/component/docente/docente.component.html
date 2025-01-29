@@ -1,21 +1,21 @@
-<p>docente works!</p>
-<p>{{id()}}</p>
+<div class="container">
 <h1>{{docente() ? docente()!.nome + " " + docente()!.cognome : "Docente non disponibile"}}</h1>
 <table>
   <thead>
   <tr>
     <th>nome</th>
     <th>data inizio</th>
-    <th>durata</th>
+    <th>dataFine</th>
   </tr>
   </thead>
   <tbody>
     <tr *ngFor="let corso of docente()?.corsi">
       <td>{{corso.nomeCorso}}</td>
       <td>{{corso.dataInizio}}</td>
-      <td>{{corso.durata}}</td>
+      <td>{{corso.dataFine}}</td>
     </tr>
   </tbody>
 </table>
-<a [routerLink]="['/docenti', id(), 'addCorso']" >aggiungi corso</a>
+<a [routerLink]="['/docenti', id(), 'addCorso']" class="button">aggiungi corso</a>
 <router-outlet></router-outlet>
+</div>

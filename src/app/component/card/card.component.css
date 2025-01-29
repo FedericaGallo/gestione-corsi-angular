@@ -1,13 +1,14 @@
 .d-flex {
 display: flex;
-background-color: white;
+background-color: #011627;
 margin-bottom: 10px;
-padding: 5px;
-border-radius: 3px;
+padding: 8px;
+border-radius: 4px;
 }
 
-.d-flex:hover{
-background-color: #b3b3ff;
+.d-flex:hover, .details:hover{
+background-color: #f8f2f2;
+color: #011627;
 }
 
 img {
@@ -23,8 +24,13 @@ width: 20%;
 
 .details {
 width: 80%;
+text-transform: uppercase;
+color: white;
 }
 
 .active {
-background-color: #b3b3ff;
+background-color: #f8f2f2;
+color: #011627;
 }
+
+
