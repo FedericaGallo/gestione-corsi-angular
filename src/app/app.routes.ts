@@ -11,7 +11,13 @@ export const routes: Routes = [
   {path: 'form', component: FormdocenteComponent},
   {path: 'docenti/:id',
      component: DocenteComponent,
-     children: [{
+     children: [
+       {
+         path: '',
+         redirectTo: 'edit',
+         pathMatch: 'prefix'
+       },
+       {
        path: 'edit',
        component: FormdocenteComponent,
        },
@@ -19,7 +25,10 @@ export const routes: Routes = [
          path: 'addCorso',
        component: AddcorsoComponent,
        }
-
        ]
      },
+   {
+     path: '**',
+     component: DocentiComponent,
+   }
   ];

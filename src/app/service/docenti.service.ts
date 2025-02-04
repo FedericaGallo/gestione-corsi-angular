@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { signal } from '@angular/core';
-import { throwError } from 'rxjs';
+import { signal, WritableSignal} from '@angular/core';
+import { throwError, Observable, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 export interface Docente {
@@ -30,17 +30,18 @@ export interface Corso {
 })
 export class DocentiService {
   docenti = signal<Docente[] | null | undefined>(undefined);
-/*private docenti: Docente[] | null = [
-  {id: 1, nome: 'Albert', cognome: 'Einstein', photo: 'AlbertEinstein.jpg'},
-  {id: 2, nome: 'Marie', cognome: 'Curie', photo: 'mariecurie.jpg'},
-  {id: 3, nome: 'Isaac', cognome: 'Newton', photo: 'Newton.jpg'}
-  ]*/
-
+// docente = signal<DocenteCorsi | null | undefined>(undefined);
+  docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
+  private docenteSubject = new BehaviorSubject<DocenteCorsi | null>(null);
+  docente$ : Observable<DocenteCorsi | null> = this.docenteSubject.asObservable();
 constructor(private httpClient : HttpClient) {}
 
-  getDocenti(){
+  /*getDocenti(){
     return this.docenti();
     }
+  getDocente(){
+      return this.docente();
+      }*/
 
 /*getDocenti() {
    const subscribtion = this.httpClient.get<{docenti : Docente[]}>('http://localhost:8080/docente/findAll', {observe: 'response'}).subscribe({
@@ -68,4 +69,28 @@ public fetchDocente(url: string) {
         return throwError(() => error);
 }))}
 
+public getDocente(url: string){
+  this.httpClient.get<DocenteCorsi>(url).subscribe((data)=> {
+  this.docenteSubject.next(data);
+  })
+
+  }
+/*public postCorso(){
+  this.httpClient.post<DocenteCorsi>(url, newCorso).subscribe((response)=> {
+  this.docenteSubject.next([...this.docenteSubject.value.corsi, response]);
+  })
+
+  }*/
+
+public postCorso(url: string, newCorso: any) {
+  this.httpClient.post<Corso>(url, newCorso).subscribe((response) => {
+    const currentValue = this.docenteSubject.value;
+    if (currentValue) {
+      this.docenteSubject.next({
+                                 ...currentValue,
+                                 corsi: [...currentValue.corsi, response]
+                               });
+    }
+  });
+}
 }
