@@ -1,24 +1,30 @@
 <div class="container">
 
-  <div class="d-flex">
+ <div class="d-flex">
+   <div class="sidebar">
 
-    <div class="list">
-      <p *ngIf="isFetching() && !error()">...</p>
-      <p *ngIf="error()">{{error()}}</p>
-      <!-- <app-card @for (docente of docenti; track d.id) (select)="onSelectD($event)"
-                 [docente]="docente"></app-card>
-       <app-card *ngFor="let d of docenti; let i = index "(select)="onSelectD($event)"
-                 [docente]="docenti[i]"></app-card>-->
-      <app-card *ngFor="let docente of docenti()" (select)="onSelectedDocente($event)"
-                [docente]="docente" [selected]="docente.id===selectedDocente"></app-card>
+   <div class="list">
 
-    </div>
-    <div class="details">
+     <p *ngIf="isFetching() && !error()">...</p>
+     <p *ngIf="error()">{{error()}}</p>
+     <!-- <app-card @for (docente of docenti; track d.id) (select)="onSelectD($event)"
+                [docente]="docente"></app-card>
+      <app-card *ngFor="let d of docenti; let i = index "(select)="onSelectD($event)"
+                [docente]="docenti[i]"></app-card>-->
 
-        <app-dettagli [selectedDocente]="selectedDocenteObject"></app-dettagli>
+     <app-card *ngFor="let docente of docenti()" (select)="onSelectedDocente($event)"
+               [docente]="docente" [selected]="docente.id===selectedDocente"></app-card>
 
-    </div>
-  </div>
+   </div>
+     <div class="pagination"><mat-icon>arrow_back_ios</mat-icon><p>{{pageNum()+1}}</p><mat-icon class="padding-left">arrow_forward_ios</mat-icon></div>
+   </div>
+   <div class="details">
+
+     <app-dettagli [selectedDocente]="selectedDocenteObject"></app-dettagli>
+
+   </div>
+
+ </div>
 
 </div>
 

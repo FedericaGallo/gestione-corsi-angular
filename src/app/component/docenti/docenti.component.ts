@@ -7,16 +7,17 @@ import {DettagliComponent} from '../dettagli/dettagli.component';
 import {CardComponent} from '../card/card.component';
 import { signal } from '@angular/core';
 import { throwError } from 'rxjs';
-
+import {MatIconModule} from '@angular/material/icon'
 
 @Component({
   selector: 'app-docenti',
   standalone: true,
-  imports: [CommonModule, DettagliComponent, CardComponent],
+  imports: [CommonModule, DettagliComponent, CardComponent, MatIconModule],
   templateUrl: './docenti.component.html',
   styleUrl: './docenti.component.css'
 })
 export class DocentiComponent {
+  pageNum = signal<number>(0);
   docenti = signal<Docente[] | null | undefined>(undefined);
    selectedDocente: number = 0;
    selectedDocenteObject!: Docente | undefined;
@@ -30,13 +31,14 @@ constructor(private docentiService: DocentiService, private destroyRef: DestroyR
 ngOnInit(){
   this.isFetching.set(true);
 const subscription = this.docentiService.loadDocenti().subscribe({
-    next: (response) => {
+    next: (response: any) => {
             //console.log(response.body);
             //console.log(response.status);
-            this.docenti.set(response.body);
+            this.docenti.set(response.body.content);
+            this.pageNum.set(response.body.pageable.pageNumber);
             //console.log(this.docenti());
             },
-          error: (error)=> {
+          error: (error: any)=> {
             this.error.set(error.message);
             },
           complete: ()=>{

@@ -31,7 +31,7 @@ export interface Corso {
 export class DocentiService {
   docenti = signal<Docente[] | null | undefined>(undefined);
 // docente = signal<DocenteCorsi | null | undefined>(undefined);
-  docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
+//  docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
   private docenteSubject = new BehaviorSubject<DocenteCorsi | null>(null);
   docente$ : Observable<DocenteCorsi | null> = this.docenteSubject.asObservable();
 constructor(private httpClient : HttpClient) {}
@@ -63,11 +63,11 @@ private fetchDocenti(url: string, errorMessage: string) {
         return throwError(() => new Error(errorMessage))}));
 }
 
-public fetchDocente(url: string) {
+/*public fetchDocente(url: string) {
    return this.httpClient.get<DocenteCorsi>(url, {observe: 'response'})
       .pipe(catchError((error: any)=>{
         return throwError(() => error);
-}))}
+}))}*/
 
 public getDocente(url: string){
   this.httpClient.get<DocenteCorsi>(url).subscribe((data)=> {

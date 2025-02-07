@@ -5,18 +5,35 @@ height: calc(100vh - 50px);
 }
 
 .d-flex {
+height: calc(100vh - 65px);
 display: flex;
 padding-top: 15px;
-padding-bottom: 15px;
-}
 
+flex-wrap: wrap;
+}
+.sidebar {
+width: 30%;
+}
 .list {
-height: calc(100vh - 80px);
- width: 30%;
+ height: calc(100vh - 115px);
  overflow-y: scroll;}
 
 .details {
-width: 70%;
+ width: 70%;
 }
 
+.pagination {
+ height: 50px;
+ width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
 
+p{
+margin: 0px;
+}
+
+.padding-left {
+padding-left: 5px;
+}

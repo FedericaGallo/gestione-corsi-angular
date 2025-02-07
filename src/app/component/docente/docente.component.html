@@ -11,8 +11,8 @@
   <tbody>
     <tr *ngFor="let corso of docente()?.corsi">
       <td>{{corso.nomeCorso}}</td>
-      <td>{{corso.dataInizio}}</td>
-      <td>{{corso.dataFine}}</td>
+      <td>{{corso.dataInizio | date: 'MMM/dd/yyyy'}}</td>
+      <td>{{corso.dataFine | date: 'MMM/dd/yyyy'}}</td>
     </tr>
   </tbody>
 </table>

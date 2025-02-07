@@ -25,7 +25,7 @@ ngOnInit(){
     });
 //this.aggiornaDocente();
   }
-aggiornaDocente(){
+/* aggiornaDocente(){
   this.url = this.url + this.id!();
    console.log(this.url);
    const subscription = this.docentiService.fetchDocente(this.url).subscribe({
@@ -35,5 +35,5 @@ aggiornaDocente(){
          this.isFetching.set(false);
          }
      })
-  }
+  } */
 }
