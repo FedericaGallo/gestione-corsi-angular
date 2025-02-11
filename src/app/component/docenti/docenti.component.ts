@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon'
 })
 export class DocentiComponent {
   pageNum = signal<number>(0);
+  totalPages = signal<number>(0);
   docenti = signal<Docente[] | null | undefined>(undefined);
    selectedDocente: number = 0;
    selectedDocenteObject!: Docente | undefined;
@@ -30,24 +31,7 @@ constructor(private docentiService: DocentiService, private destroyRef: DestroyR
 
 ngOnInit(){
   this.isFetching.set(true);
-const subscription = this.docentiService.loadDocenti().subscribe({
-    next: (response: any) => {
-            //console.log(response.body);
-            //console.log(response.status);
-            this.docenti.set(response.body.content);
-            this.pageNum.set(response.body.pageable.pageNumber);
-            //console.log(this.docenti());
-            },
-          error: (error: any)=> {
-            this.error.set(error.message);
-            },
-          complete: ()=>{
-            this.isFetching.set(false);
-            }
-    });
-this.destroyRef.onDestroy(() => {
-  subscription.unsubscribe();
-  })
+  this.loadDocenti(0);
   }
 onSelectedDocente(id: number){
   this.selectedDocente = id;
@@ -57,4 +41,34 @@ onSelectedDocente(id: number){
  //console.log(this.selectedDocenteObject);
   }
 }
+changePage(direction: number){
+ if(this.pageNum() == 0 && direction == -1 || this.pageNum() == this.totalPages() - 1 && direction == 1){
+    return;
+    }
+    this.loadDocenti(this.pageNum() + direction);
+  }
+
+loadDocenti(page: number){
+  const subscription = this.docentiService.fetchDocenti(page).subscribe({
+      next: (response: any) => {
+              //console.log(response.body);
+              //console.log(response.status);
+              this.docenti.set(response.body.content);
+              this.pageNum.set(response.body.pageable.pageNumber);
+              this.totalPages.set(response.body.totalPages);
+              console.log(response.body);
+              console.log(this.pageNum());
+              console.log(this.totalPages());
+              },
+            error: (error: any)=> {
+              this.error.set(error.message);
+              },
+            complete: ()=>{
+              this.isFetching.set(false);
+              }
+      });
+  this.destroyRef.onDestroy(() => {
+    subscription.unsubscribe();
+    })
+  }
 }

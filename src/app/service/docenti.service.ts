@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { signal, WritableSignal} from '@angular/core';
 import { throwError, Observable, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -52,13 +52,17 @@ constructor(private httpClient : HttpClient) {}
       });
 }*/
 
-loadDocenti(){
+/* loadDocenti(){
   return this.fetchDocenti('http://localhost:8080/docente/findAll','errore nella chiamata al server')
-  }
+  } */
 
 // 'operatore catchError intercetta eventuali errori che potrebbero verificarsi durante la richiesta HTTP. throwError restituisce un observable che emette un errore.
-private fetchDocenti(url: string, errorMessage: string) {
-   return this.httpClient.get<Docente[]>(url, {observe: 'response'})
+fetchDocenti(page: number) {
+  const params = new HttpParams()
+    .set('page', page.toString());
+  const url = 'http://localhost:8080/docente/findAll';
+  const errorMessage = 'errore nella chiamata al server';
+   return this.httpClient.get<Docente[]>(url, {params, observe: 'response'})
       .pipe(catchError((error: any)=>{
         return throwError(() => new Error(errorMessage))}));
 }
