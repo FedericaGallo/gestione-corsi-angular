@@ -16,6 +16,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrl: './docenti-table.component.css'
 })
 export class DocentiTableComponent {
+  url: string= 'http://localhost:8080/docente/';
   isFetching = signal(false);
    pageNum = signal<number>(0);
     totalPages = signal<number>(0);
@@ -57,15 +58,23 @@ openDialogAdd(){
     dialogRef.afterClosed().subscribe(result => {
          if (result !== undefined) {
            console.log(result);
-          this.docentiService.postDocente('http://localhost:8080/docente/addDocente', result).subscribe();;
+          this.docentiService.postDocente('http://localhost:8080/docente/addDocente', result).subscribe();
+          this.loadDocenti(this.pageNum());
          }
        });
   }
 openDialogDelete(docente : Docente){
-    this.dialog.open(ConfirmDialogComponent, {
+   const dialogRef =  this.dialog.open(ConfirmDialogComponent, {
         width: '200px',
         data: {docente: docente}
         });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+                console.log(result);
+                this.docentiService.deleteDocente(result).subscribe();
+                this.loadDocenti(this.pageNum());
+               }
+             });
   }
 changePage(direction: number){
  if(this.pageNum() == 0 && direction == -1 || this.pageNum() == this.totalPages() - 1 && direction == 1){

@@ -31,6 +31,7 @@ export interface Corso {
   providedIn: 'root'
 })
 export class DocentiService {
+  url: string = 'http://localhost:8080/docente';
   docenti = signal<Docente[]>([]);
   //docente = signal<DocenteCorsi | null | undefined>(undefined);
   //docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
@@ -100,10 +101,7 @@ public postCorso(url: string, newCorso: any) {
 }
 
 public postDocente(url: string, newDocente: any) {
- const docenti = this.docenti();
-   if (docenti) {
-     this.docenti.update(docenti => [...docenti, newDocente]);
-   }
+
   return this.httpClient.post<Docente>(url, newDocente)
     .pipe(
       catchError((error: any) => {
@@ -112,4 +110,13 @@ public postDocente(url: string, newDocente: any) {
     );
 }
 
+public deleteDocente(id: number) {
+  const url = `${this.url}/deleteDocente/${id}`;
+  return this.httpClient.delete<Docente>(url)
+    .pipe(
+      catchError((error: any) => {
+        return throwError(() => error);
+      })
+    );
+}
 }
