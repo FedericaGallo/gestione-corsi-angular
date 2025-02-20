@@ -8,6 +8,7 @@ export interface Docente {
   id: number;
   nome: string;
   cognome: string;
+  descrizione: string;
   photo: string;
   }
 
@@ -15,6 +16,7 @@ export interface DocenteCorsi {
   id: number;
   nome: string;
   cognome: string;
+  descrizione: string;
   corsi: Corso[];
   }
 
@@ -29,9 +31,9 @@ export interface Corso {
   providedIn: 'root'
 })
 export class DocentiService {
-  docenti = signal<Docente[] | null | undefined>(undefined);
-// docente = signal<DocenteCorsi | null | undefined>(undefined);
-//  docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
+  docenti = signal<Docente[]>([]);
+  //docente = signal<DocenteCorsi | null | undefined>(undefined);
+  //docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
   private docenteSubject = new BehaviorSubject<DocenteCorsi | null>(null);
   docente$ : Observable<DocenteCorsi | null> = this.docenteSubject.asObservable();
 constructor(private httpClient : HttpClient) {}
@@ -91,10 +93,23 @@ public postCorso(url: string, newCorso: any) {
     const currentValue = this.docenteSubject.value;
     if (currentValue) {
       this.docenteSubject.next({
-                                 ...currentValue,
-                                 corsi: [...currentValue.corsi, response]
-                               });
+        ...currentValue,
+        corsi: [...currentValue.corsi, response]});
     }
   });
 }
+
+public postDocente(url: string, newDocente: any) {
+ const docenti = this.docenti();
+   if (docenti) {
+     this.docenti.update(docenti => [...docenti, newDocente]);
+   }
+  return this.httpClient.post<Docente>(url, newDocente)
+    .pipe(
+      catchError((error: any) => {
+        return throwError(() => error);
+      })
+    );
+}
+
 }

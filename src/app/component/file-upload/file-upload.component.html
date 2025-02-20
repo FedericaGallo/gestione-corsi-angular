@@ -1,0 +1,29 @@
+<p>file-upload works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="input-group">
+    <p>
+      <label>Nome</label>
+      <input type="text" name="nome" id="nome" [formControl]="form.control.nome">
+    </p>
+    <p>
+      <label>Cognome</label>
+      <input type="text" name="cognome" id="cognome" formControlName="cognome">
+    </p>
+    <p>
+      <label>Descrizione</label>
+      <textarea name="descrizione" id="descrizione" formControlName="cognome" row="4"></textarea>
+    </p>
+    <p>
+      <label>immagine</label>
+      <input type="file" [value]="fileName" (change)="onFileSelected($event)">
+    </p>
+  </div>
+  <p>
+    <button>salva</button>
+  </p>
+  <p *ngIf ="form.controls.nome.touched && form.controls.nome.invalid && form.controls.nome.dirty">
+    insert a valid email
+  </p>
+</form>
+
+

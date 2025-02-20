@@ -19,7 +19,7 @@
      <div class="pagination"><mat-icon (click)="changePage(-1)">arrow_back_ios</mat-icon><p>{{pageNum()+1}}</p><mat-icon (click)="changePage(1)" class="padding-left">arrow_forward_ios</mat-icon></div>
    </div>
    <div class="details">
-
+     <router-outlet></router-outlet>
      <app-dettagli [selectedDocente]="selectedDocenteObject"></app-dettagli>
 
    </div>

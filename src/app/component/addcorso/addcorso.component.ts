@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgForm, NgModel } from '@angular/forms';
 import { signal } from '@angular/core';
@@ -7,10 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { DocenteComponent } from '../docente/docente.component';
 import { DocentiService } from '../../service/docenti.service';
+import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-addcorso',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, DocenteComponent],
+  imports: [FormsModule, CommonModule, RouterModule, DocenteComponent, MatDialogModule],
   templateUrl: './addcorso.component.html',
   styleUrl: './addcorso.component.css'
 })
@@ -21,7 +23,10 @@ today: string = new Date().toISOString().split('T')[0];
 dataInizio = signal(this.today);
 
 
-constructor(private httpClient: HttpClient, private docenteComponent: DocenteComponent, private docentiService: DocentiService){};
+constructor(private httpClient: HttpClient,
+  private docenteComponent: DocenteComponent,
+  private docentiService: DocentiService,
+  public dialogRef: MatDialogRef<AddcorsoComponent>){};
 onSubmit(formData: NgForm, nome: NgModel, fine: NgModel, inizio: NgModel){
   if (formData.form.invalid) {
       return;
@@ -33,6 +38,7 @@ this.docentiService.postCorso('http://localhost:8080/corso/addCorso',
     dataFine: fine.value,
     idDocenteDTO: this.id(),
  });
+  formData.form.reset();
    /* this.httpClient.post('http://localhost:8080/corso/addCorso', {
       nomeCorso: nome.value,
       dataInizio: inizio.value,

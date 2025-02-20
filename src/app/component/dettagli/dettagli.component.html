@@ -1,6 +1,7 @@
 <div *ngIf="selectedDocente" class="details">
   <h1>{{ selectedDocente.nome + " " + selectedDocente.cognome}}</h1>
-  <a [routerLink]="'/docenti/' + selectedDocente.id" routerLinkActive="selected" class="button">Vai ai dettagli</a>
+  <p>{{ selectedDocente.descrizione }}</p>
+  <a [routerLink]="'/docenti/' + selectedDocente.id" routerLinkActive="selected" class="button">Vai ai corsi del docente</a>
 
 </div>
 

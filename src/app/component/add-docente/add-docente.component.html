@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Inserisci i dati del docente</h2>
+<mat-dialog-content class="dialog-content">
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+<mat-form-field>
+      <mat-label>nome</mat-label>
+      <input matInput type="text" name="nome" id="nome" formControlName="nome">
+</mat-form-field>
+    <mat-form-field>
+      <mat-label>cognome</mat-label>
+      <input matInput type="text" name="cognome" id="cognome" formControlName="cognome">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>descrizione</mat-label>
+      <textarea matInput placeholder="Textarea" name="descrizione" id="descrizione" formControlName="descrizione"></textarea>
+    </mat-form-field>
+
+  <mat-dialog-actions>
+    <button mat-button type="submit" (click)="onSubmit()">salva</button>
+    <button mat-button (click)="onNoClick()">annulla</button>
+  </mat-dialog-actions>
+  <p *ngIf ="form.controls.descrizione.touched && form.controls.descrizione.invalid && form.controls.descrizione.dirty">
+    inserisci descrizione di 6 caratteri
+  </p>
+</form>
+  </mat-dialog-content>

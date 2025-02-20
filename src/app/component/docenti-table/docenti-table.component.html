@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="padding-top-20">
+    <button (click)="openDialogAdd()">aggiungi docente</button>
+  </div>
+  <div class="d-flex">
+    <p class="num-pages">pagina {{pageNum()+1}} di {{totalPages()}}</p>
+  <div class="pagination">
+    <mat-icon (click)="changePage(-1)">arrow_back_ios</mat-icon>
+    <p>{{pageNum()+1}}</p>
+    <mat-icon (click)="changePage(1)" class="padding-left">arrow_forward_ios</mat-icon>
+  </div>
+  </div>
+  <div class="padding-top-20">
+    <table class="table table-dark table-hover table-striped table-borderless">
+      <thead>
+      <tr>
+        <th scope="col">nome</th>
+        <th scope="col">cognome</th>
+        <th scope="col">bio</th>
+        <th scope="col">azioni</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr  *ngFor="let docente of docenti()">
+        <td>{{docente.nome}}</td>
+        <td>{{docente.cognome + ' '}}</td>
+        <td>{{docente.descrizione? docente.descrizione : ''}}</td>
+        <td>
+          <mat-icon (click)="openDialogAdd()">remove_red_eye</mat-icon>
+          <mat-icon (click)="openDialogAdd()">edit</mat-icon>
+          <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

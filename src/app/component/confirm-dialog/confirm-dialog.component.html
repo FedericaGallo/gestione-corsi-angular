@@ -1,0 +1,7 @@
+<mat-dialog-content class="dialog-content">
+<p>Sei sicuro di voler cancellare {{data.docente.nome + ' ' + data.docente.cognome}}?</p>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annulla</button>
+  <button mat-button [mat-dialog-close]="data.docente.id" cdkFocusInitial>Conferma</button>
+</mat-dialog-actions>
+  </mat-dialog-content>
