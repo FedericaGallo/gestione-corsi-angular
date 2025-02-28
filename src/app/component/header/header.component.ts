@@ -24,4 +24,11 @@ ngOnInit() {
           }
     });
 }
+logOut(){
+  console.log('ciao');
+    console.log(localStorage.getItem('token'));
+    localStorage.removeItem("token");
+    localStorage.removeItem("expirationDate");
+    console.log(localStorage.getItem('token'));
+  }
 }

@@ -21,7 +21,7 @@ export class TokenService {
    }
 
  logout() {
-         localStorage.removeItem("id_token");
+         localStorage.removeItem("token");
          localStorage.removeItem("expirationDate");
      }
    public isLoggedIn() {

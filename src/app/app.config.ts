@@ -3,18 +3,31 @@ import { provideRouter, withComponentInputBinding, withRouterConfig } from '@ang
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor} from './auth.interceptor';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HttpInterceptorFn, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+
+function authInterceptor(req : HttpRequest<unknown>, next: HttpHandlerFn){
+
+  const idToken = localStorage.getItem("token");
+
+      if (idToken) {
+        const cloned = req.clone({
+          headers: req.headers.set("Authorization", "Bearer " + idToken)
+        });
+        console.log(cloned);
+        return next(cloned);
+      } else {
+        console.log("no token");
+        return next(req);
+      }
+  }
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes, withComponentInputBinding(), withRouterConfig({
 paramsInheritanceStrategy: 'always',
-    })), provideClientHydration(), provideAnimationsAsync(), provideHttpClient(),
-{
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    }
+    })), provideClientHydration(), provideAnimationsAsync(), provideHttpClient(
+      withInterceptors([authInterceptor])
+      )
   ]
 };
 
