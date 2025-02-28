@@ -2,10 +2,9 @@ import { Component, inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { DocentiService } from '../../service/docenti.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 export interface DialogData {
   nome: string;
@@ -33,14 +32,12 @@ export class AddDocenteComponent {
     validators: [ Validators.minLength(6) ]
      })
   })
-constructor(private docentiService: DocentiService) {}
 readonly dialogRef = inject(MatDialogRef<AddDocenteComponent>);
 onNoClick(): void {
     this.dialogRef.close();
   }
 
 onSubmit() {
-
     if (this.form.valid) {
        this.dialogRef.close(this.form.value);
       console.log('Form Submitted!', this.form.value);

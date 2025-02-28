@@ -23,7 +23,7 @@ li:hover{
 background-color: yellow;
 }
 ul {
-width: 33%;
+width: calc(100% / 3);
 height: 50px;
 margin: 0px;
 padding: 0px;

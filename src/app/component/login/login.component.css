@@ -1,0 +1,14 @@
+
+.example-container {
+margin: 0 auto;
+width: 500px;
+padding: 10px;
+}
+.example-full-width {
+  width: 100%;
+}
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 140px;
+}

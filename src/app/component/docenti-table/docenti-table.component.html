@@ -12,9 +12,10 @@
 
   </div>
   <div class="padding-top-20">
-    <table class="table table-dark table-hover table-striped table-borderless">
+    <table class="table table-hover table-dark ">
       <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">nome</th>
         <th scope="col">cognome</th>
         <th scope="col">bio</th>
@@ -24,12 +25,13 @@
       <tbody>
 
       <tr *ngFor="let docente of docenti()">
+        <td > <a [routerLink]="'/docenti/' + docente.id" routerLinkActive="selected"><mat-icon>open_in_new</mat-icon></a></td>
         <td>{{docente.nome}}</td>
         <td>{{docente.cognome + ' '}}</td>
         <td>{{docente.descrizione? docente.descrizione : ''}}</td>
         <td>
-          <mat-icon (click)="openDialogAdd()">remove_red_eye</mat-icon>
-          <mat-icon (click)="openDialogAdd()">edit</mat-icon>
+          <mat-icon (click)="openDialogView(docente)">remove_red_eye</mat-icon>
+          <mat-icon (click)="openDialogEdit(docente)">edit</mat-icon>
           <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>
         </td>
       </tr>

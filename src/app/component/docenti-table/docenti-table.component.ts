@@ -7,11 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddDocenteComponent } from '../add-docente/add-docente.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { EditDocenteComponent } from '../edit-docente/edit-docente.component';
+import { ViewDocenteComponent } from '../view-docente/view-docente.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-docenti-table',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatDialogModule],
+  imports: [CommonModule, MatIconModule, MatDialogModule, RouterLink],
   templateUrl: './docenti-table.component.html',
   styleUrl: './docenti-table.component.css'
 })
@@ -52,27 +55,63 @@ export class DocentiTableComponent {
     }
 openDialogAdd(){
  const dialogRef = this.dialog.open(AddDocenteComponent, {
-    width: '300px',
-    height: '300px',
+     width: '60vw',
+     height: '55vh',
      });
     dialogRef.afterClosed().subscribe(result => {
          if (result !== undefined) {
            console.log(result);
-          this.docentiService.postDocente('http://localhost:8080/docente/addDocente', result).subscribe();
-          this.loadDocenti(this.pageNum());
+          this.docentiService.postDocente('http://localhost:8080/docente/addDocente', result).subscribe(()=>{
+            this.loadDocenti(this.pageNum());
+            });
          }
        });
   }
 openDialogDelete(docente : Docente){
    const dialogRef =  this.dialog.open(ConfirmDialogComponent, {
-        width: '200px',
+         width: '350px',
+         height: '200px',
+         data: {entity: docente}
+        });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+                console.log(result);
+               const subscription = this.docentiService.deleteDocente(result).subscribe(()=>{
+                this.loadDocenti(this.pageNum());
+                 });
+
+               }
+             });
+  }
+openDialogEdit(docente : Docente){
+   const dialogRef =  this.dialog.open(EditDocenteComponent, {
+        width: '60vw',
+        height: '55vh',
         data: {docente: docente}
         });
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
                 console.log(result);
-                this.docentiService.deleteDocente(result).subscribe();
+               const subscription = this.docentiService.updateDocente(docente.id, result).subscribe(()=>{
                 this.loadDocenti(this.pageNum());
+                 });
+
+               }
+             });
+  }
+openDialogView(docente : Docente){
+   const dialogRef =  this.dialog.open(ViewDocenteComponent, {
+        width: '60vw',
+        height: '55vh',
+        data: {docente: docente}
+        });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+                console.log(result);
+               const subscription = this.docentiService.updateDocente(docente.id, result).subscribe(()=>{
+                this.loadDocenti(this.pageNum());
+                 });
+
                }
              });
   }

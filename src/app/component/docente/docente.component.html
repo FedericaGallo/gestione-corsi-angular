@@ -1,21 +1,29 @@
 <div class="container">
 <h1>{{docente() ? docente()!.nome + " " + docente()!.cognome : "Docente non disponibile"}}</h1>
-<table class="table table-hover table-responsive-sm">
+  <button (click)="openDialogAdd()">aggiungi corso</button>
+<table class="table table-hover table-dark table-responsive-sm">
   <thead>
   <tr>
-    <th >nome</th>
+    <th></th>
+    <th>nome</th>
     <th>data inizio</th>
     <th>dataFine</th>
+    <th>azioni</th>
   </tr>
   </thead>
   <tbody>
     <tr *ngFor="let corso of docente()?.corsi">
+      <td > <a><mat-icon>open_in_new</mat-icon></a></td>
       <td>{{corso.nomeCorso}}</td>
       <td>{{corso.dataInizio | date: 'MMM/dd/yyyy'}}</td>
       <td>{{corso.dataFine | date: 'MMM/dd/yyyy'}}</td>
+      <td>
+        <mat-icon (click)="openDialogView(corso)">remove_red_eye</mat-icon>
+        <mat-icon (click)="openDialogEdit(corso)">edit</mat-icon>
+        <mat-icon (click)="openDialogDelete(corso)">delete</mat-icon>
+      </td>
     </tr>
   </tbody>
 </table>
-<a [routerLink]="['/docenti', id(), 'addCorso']" class="button">aggiungi corso</a>
-<router-outlet></router-outlet>
 </div>
+

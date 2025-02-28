@@ -2,9 +2,10 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
 import { DocentiComponent } from './component/docenti/docenti.component';
 import { DocenteComponent } from './component/docente/docente.component';
-import { FormdocenteComponent } from './component/formdocente/formdocente.component';
 import { DocentiTableComponent } from './component/docenti-table/docenti-table.component';
-import { AddcorsoComponent } from './component/addcorso/addcorso.component';
+import { LoginComponent } from './component/login/login.component';
+import { RegisterComponent } from './component/register/register.component';
+import { ActivateAccountComponent } from './component/activate-account/activate-account.component';
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -15,14 +16,9 @@ export const routes: Routes = [
            path: '',
            redirectTo: '',
            pathMatch: 'prefix'
-        },
-        {
-          path: 'add',
-          component: FormdocenteComponent,
         }
         ]
       },
-  {path: 'form', component: FormdocenteComponent},
   {path: 'docenti/table', component: DocentiTableComponent},
   {path: 'docenti/:id',
      component: DocenteComponent,
@@ -31,17 +27,12 @@ export const routes: Routes = [
          path: '',
          redirectTo: 'edit',
          pathMatch: 'prefix'
-       },
-       {
-       path: 'edit',
-       component: FormdocenteComponent,
-       },
-       {
-         path: 'addCorso',
-       component: AddcorsoComponent,
        }
        ]
      },
+   {path: 'login', component: LoginComponent},
+   {path: 'register', component: RegisterComponent},
+   {path: 'validation', component: ActivateAccountComponent},
    {
      path: '**',
      component: DocentiComponent,

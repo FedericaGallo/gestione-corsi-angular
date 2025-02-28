@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Inserisci i dati del corso</h2>
+<mat-dialog-content class="dialog-content">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>nome</mat-label>
+        <input matInput type="text" name="nome" id="nome" formControlName="nomeCorso">
+      </mat-form-field >
+<div class="d-flex gap-2 justify-content-center">
+    <mat-form-field>
+      <mat-label>Data inizio corso</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dataInizio">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Data fine corso</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="dataFine" [min]="form.get('dataInizio')?.value">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+</div>
+    <mat-dialog-actions>
+      <div class="button">
+        <button mat-raised-button cdkFocusInitial type="submit" (click)="onSubmit()">salva</button>
+        <button mat-raised-button (click)="onNoClick()">annulla</button>
+      </div>
+    </mat-dialog-actions>
+
+    <p *ngIf ="form.controls.dataInizio.touched && form.controls.dataInizio.invalid ">
+      inserisci descrizione di 6 caratteri
+    </p>
+  </form>
+</mat-dialog-content>
+

@@ -1,7 +1,11 @@
 <mat-dialog-content class="dialog-content">
-<p>Sei sicuro di voler cancellare {{data.docente.nome + ' ' + data.docente.cognome}}?</p>
+  <div *ngIf="data.entity.nome; then persona else corso"></div>
+  <ng-template #persona><h4 mat-dialog-title >Sei sicuro di voler cancellare {{data.entity.nome + ' ' + data.entity.cognome}}?</h4></ng-template>
+  <ng-template #corso><h4 mat-dialog-title >Sei sicuro di voler cancellare {{data.entity.nomeCorso}}?</h4></ng-template>
 <mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Annulla</button>
-  <button mat-button [mat-dialog-close]="data.docente.id" cdkFocusInitial>Conferma</button>
+  <div class="button">
+  <button mat-raised-button (click)="onNoClick()">Annulla</button>
+  <button mat-raised-button [mat-dialog-close]="data.entity.id" cdkFocusInitial>Conferma</button>
+  </div>
 </mat-dialog-actions>
   </mat-dialog-content>

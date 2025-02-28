@@ -119,4 +119,14 @@ public deleteDocente(id: number) {
       })
     );
 }
+
+public updateDocente(id: number, updatedDocente: Docente) {
+  const url = `${this.url}/updateDocente/${id}`;
+  return this.httpClient.put<Docente>(url, updatedDocente)
+    .pipe(
+      catchError((error: any) => {
+        return throwError(() => error);
+      })
+    );
+}
 }
