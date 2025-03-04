@@ -10,7 +10,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { EditDocenteComponent } from '../edit-docente/edit-docente.component';
 import { ViewDocenteComponent } from '../view-docente/view-docente.component';
 import { RouterLink } from '@angular/router';
-
+import {AuthService } from '../../service/auth.service';
 @Component({
   selector: 'app-docenti-table',
   standalone: true,
@@ -26,9 +26,11 @@ export class DocentiTableComponent {
     docenti = signal<Docente[]>([]);
      error = signal('');
      newDocente = signal<any>({});
-  constructor(private docentiService: DocentiService,
+  constructor(
+    private docentiService: DocentiService,
     private destroyRef: DestroyRef,
-    public dialog: MatDialog){}
+    public dialog: MatDialog,
+    public authService: AuthService){}
   ngOnInit(){
     this.isFetching.set(true);
     this.loadDocenti(0);

@@ -44,10 +44,13 @@ login(){
     this.authService.authenticate(this.form.value).subscribe({
       next: (res)=>{
         console.log(res);
+        this.authService.ruolo = res.ruoli as string;
         this.tokenService.token = res.token as string;
         this.tokenService.expirationDate = res.expirationDate as string;
+        console.log(this.authService.isAdmin()) ;
+        this.authService.logIn();
+        this.router.navigateByUrl('/');
         },
-        //this.router.navigate(['register']); },
       error: (err)=> {
         console.log(err);
         if (err.error.validationErrors) {

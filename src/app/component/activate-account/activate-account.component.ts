@@ -25,7 +25,7 @@ private confirmAccount(token: string) {
       token
     ).subscribe({
       next: () => {
-        this.message = 'Your account has been successfully activated.\nNow you can proceed to login';
+        this.message = 'Your account has been successfully activated. Now you can proceed to login';
         this.submitted = true;
       },
       error: () => {

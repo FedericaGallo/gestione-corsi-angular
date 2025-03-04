@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 
 export interface Utente {
   nome?: String | null;
@@ -12,15 +12,30 @@ export interface Utente {
 interface AuthResponse {
   token: string;
   expirationDate: string;
+  ruoli: String;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+private subject = new BehaviorSubject<boolean>(false);
+token$ : Observable<boolean> =  this.subject.asObservable();
+  ruolo: string = '';
   url: string ='http://localhost:8080/auth';
-  constructor(private httpClient : HttpClient) { }
+  constructor(private httpClient : HttpClient) {
+const token = localStorage.getItem('token');
+if (token){
+this.subject.next(true);
+  }
+}
 
+logIn(){
+  this.subject.next(true);
+  }
+public isAdmin(): boolean{
+ return this.ruolo.includes("ADMIN");
+  }
 register(utente: Utente){
   const url = `${this.url}/register`;
   return this.httpClient.post(url, utente)
@@ -51,3 +66,4 @@ activate(token: string){
       );
   }
 }
+

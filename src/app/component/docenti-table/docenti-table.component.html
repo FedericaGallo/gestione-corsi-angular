@@ -19,7 +19,9 @@
         <th scope="col">nome</th>
         <th scope="col">cognome</th>
         <th scope="col">bio</th>
+        @if(authService.isAdmin()){
         <th scope="col">azioni</th>
+        }
       </tr>
       </thead>
       <tbody>
@@ -29,11 +31,11 @@
         <td>{{docente.nome}}</td>
         <td>{{docente.cognome + ' '}}</td>
         <td>{{docente.descrizione? docente.descrizione : ''}}</td>
-        <td>
+        @if(authService.isAdmin()) {<td>
           <mat-icon (click)="openDialogView(docente)">remove_red_eye</mat-icon>
           <mat-icon (click)="openDialogEdit(docente)">edit</mat-icon>
           <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>
-        </td>
+        </td>}
       </tr>
       </tbody>
     </table>
