@@ -1,6 +1,5 @@
-import { Component, DestroyRef } from '@angular/core';
+import { Component, DestroyRef, signal, computed } from '@angular/core';
 import { DocentiService, Docente } from '../../service/docenti.service';
-import { signal } from '@angular/core';
 import { throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +21,17 @@ export class DocentiTableComponent {
   url: string= 'http://localhost:8080/docente/';
   isFetching = signal(false);
    pageNum = signal<number>(0);
+   numberOfElements = signal<number>(0);
     totalPages = signal<number>(0);
+    totalElements = signal<number>(0);
+    lastElement = computed(() => {
+    if(this.pageNum()+1 == this.totalPages()){
+      return this.totalElements();
+      } else {
+       return (this.pageNum() + 1) * 10;
+        }
+    });
+    firstElement = computed(() => (this.lastElement() - this.numberOfElements())+1 );
     docenti = signal<Docente[]>([]);
      error = signal('');
      newDocente = signal<any>({});
@@ -38,9 +47,12 @@ export class DocentiTableComponent {
   loadDocenti(page: number){
     const subscription = this.docentiService.fetchDocenti(page).subscribe({
         next: (response: any) => {
+          console.log(response);
+                this.totalElements.set(response.body.totalElements);
                 this.docenti.set(response.body.content);
                 this.pageNum.set(response.body.pageable.pageNumber);
                 this.totalPages.set(response.body.totalPages);
+                this.numberOfElements.set(response.body.numberOfElements);
                 console.log(this.docenti);
                 },
               error: (error: any)=> {
@@ -122,5 +134,10 @@ changePage(direction: number){
     return;
     }
     this.loadDocenti(this.pageNum() + direction);
+  }
+
+calculateStyle(){
+ return {'width': this.authService.isAdmin()? '10%': '5%'};
+
   }
 }

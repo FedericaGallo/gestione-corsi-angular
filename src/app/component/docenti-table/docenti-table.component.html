@@ -1,7 +1,5 @@
 <div class="container">
-  <div class="padding-top-20">
-    <button (click)="openDialogAdd()">aggiungi docente</button>
-  </div>
+
   <div class="d-flex padding-top-20">
     <p class="num-pages">pagina {{pageNum()+1}} di {{totalPages()}}</p>
     <div class="pagination">
@@ -9,7 +7,10 @@
       <p>{{pageNum()+1}}</p>
       <mat-icon (click)="changePage(1)" class="padding-left">arrow_forward_ios</mat-icon>
     </div>
-
+    <p>{{firstElement()}}-{{lastElement()}} of {{totalElements()}}</p>
+    <div class="padding-top-20">
+      <button (click)="openDialogAdd()">aggiungi docente</button>
+    </div>
   </div>
   <div class="padding-top-20">
     <table class="table table-hover table-dark ">
@@ -19,9 +20,8 @@
         <th scope="col">nome</th>
         <th scope="col">cognome</th>
         <th scope="col">bio</th>
-        @if(authService.isAdmin()){
-        <th scope="col">azioni</th>
-        }
+        <th [ngStyle]="calculateStyle()" scope="col">azioni</th>
+
       </tr>
       </thead>
       <tbody>
@@ -31,11 +31,12 @@
         <td>{{docente.nome}}</td>
         <td>{{docente.cognome + ' '}}</td>
         <td>{{docente.descrizione? docente.descrizione : ''}}</td>
-        @if(authService.isAdmin()) {<td>
+        <td>
           <mat-icon (click)="openDialogView(docente)">remove_red_eye</mat-icon>
+          @if(authService.isAdmin()) {
           <mat-icon (click)="openDialogEdit(docente)">edit</mat-icon>
-          <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>
-        </td>}
+          <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>}
+        </td>
       </tr>
       </tbody>
     </table>

@@ -29,12 +29,17 @@ if (token){
 this.subject.next(true);
   }
 }
-
-logIn(){
+public logIn(){
   this.subject.next(true);
   }
+public logOut(){
+  this.subject.next(false);
+  }
 public isAdmin(): boolean{
- return this.ruolo.includes("ADMIN");
+  const ruolo = localStorage.getItem('ruolo');
+  if(ruolo){
+     return ruolo.includes("ADMIN");
+    }else return false;
   }
 register(utente: Utente){
   const url = `${this.url}/register`;

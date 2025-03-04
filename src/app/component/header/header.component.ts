@@ -25,10 +25,9 @@ ngOnInit() {
     });
 }
 logOut(){
-  console.log('ciao');
-    console.log(localStorage.getItem('token'));
+  console.log('hei');
     localStorage.removeItem("token");
     localStorage.removeItem("expirationDate");
-    console.log(localStorage.getItem('token'));
+    this.router.parseUrl('/login');
   }
 }

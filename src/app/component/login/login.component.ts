@@ -44,7 +44,7 @@ login(){
     this.authService.authenticate(this.form.value).subscribe({
       next: (res)=>{
         console.log(res);
-        this.authService.ruolo = res.ruoli as string;
+        this.tokenService.ruolo = res.ruoli as string;
         this.tokenService.token = res.token as string;
         this.tokenService.expirationDate = res.expirationDate as string;
         console.log(this.authService.isAdmin()) ;

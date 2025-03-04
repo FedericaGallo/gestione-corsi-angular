@@ -13,16 +13,23 @@ export class TokenService {
     localStorage.setItem('expirationDate',  expirationDate);
     }
 
+set ruolo(ruolo: string){
+  localStorage.setItem('ruolo', ruolo);
+  }
+get ruolo(){
+  return localStorage.getItem('ruolo') as string;
+  }
  get token(){
-   return localStorage.getItem('token') as string
+   return localStorage.getItem('token') as string;
    }
  get expirationDate(){
-   return localStorage.getItem('expirationDate') as string
+   return localStorage.getItem('expirationDate') as string;
    }
 
  logout() {
          localStorage.removeItem("token");
          localStorage.removeItem("expirationDate");
+            localStorage.removeItem("ruolo");
      }
    public isLoggedIn() {
        return moment().isBefore(this.expirationDate);

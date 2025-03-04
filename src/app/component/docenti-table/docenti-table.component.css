@@ -5,8 +5,7 @@ height: calc(100vh - 50px);
 }
 table {
 width:100%;
-
-    }
+}
 td:nth-child(2) {
  width:15%;
 }
@@ -24,9 +23,9 @@ max-width:200px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-td:nth-child(5){
+/*td:nth-child(5){
 width:10%;
-}
+}*/
 
 .d-flex {
 display: flex;
