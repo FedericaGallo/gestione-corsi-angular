@@ -25,9 +25,9 @@ ngOnInit() {
     });
 }
 logOut(){
-  console.log('hei');
     localStorage.removeItem("token");
     localStorage.removeItem("expirationDate");
-    this.router.parseUrl('/login');
+    localStorage.removeItem("ruolo");
+    this.router.navigate(["/login"]);
   }
 }

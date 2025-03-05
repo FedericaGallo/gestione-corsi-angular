@@ -1,15 +1,35 @@
 import { Injectable } from '@angular/core';
-interface Corso {
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { signal, WritableSignal} from '@angular/core';
+import { throwError, Observable, BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+export interface Corso {
   id: number;
-  nome: string;
-  descrizione: string;
-  docente: string;
+  nomeCorso: string;
+  dataInizio: string;
+  dataFine: string;
+  nomeDocenteDTO: string;
+  cognomeDocenteDTO: string;
+  idDocenteDTO : number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CorsiService {
-
-  constructor() { }
+ url: string = 'http://localhost:8080/docente';
+   corsi = signal<Corso[]>([]);
+  constructor(private httpClient : HttpClient) { }
+  fetchCorsi(page: number) {
+    const params = new HttpParams()
+      .set('page', page.toString());
+    const url = 'http://localhost:8080/corso/findAll';
+    const errorMessage = 'errore nella chiamata al server';
+     return this.httpClient.get<Corso[]>(url, {params, observe: 'response'})
+        .pipe(catchError((error: any)=>{
+          return throwError(() => new Error(errorMessage))}));
+  }
+postCorso(url: string, corso: Corso){return 'ciao';}
+deleteCorso(){return 'ciao';}
 }

@@ -47,8 +47,8 @@ login(){
         this.tokenService.ruolo = res.ruoli as string;
         this.tokenService.token = res.token as string;
         this.tokenService.expirationDate = res.expirationDate as string;
-        console.log(this.authService.isAdmin()) ;
-        this.authService.logIn();
+        console.log("isAdmin " + this.authService.isAdmin()) ;
+        this.authService.logIn(res.token);
         this.router.navigateByUrl('/');
         },
       error: (err)=> {

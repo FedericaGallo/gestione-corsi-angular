@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 export const authGuard: CanActivateFn = (route, state) => {
       const auth = inject(AuthService);
       const router = inject(Router);
-return auth.token$.pipe(
+      return auth.isLoggedIn$.pipe(
     map(token => token ? true : router.parseUrl('/login'))
   );
-
 };

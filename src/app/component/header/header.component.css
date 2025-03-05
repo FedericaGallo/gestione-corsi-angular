@@ -1,10 +1,11 @@
-.header {
+header {
 height: 50px;
 margin: 0px;
 padding: 0px;
 display: flex;
 justify-content: space-between;
 align-items: center;
+background-color: white;
 }
 .entity {
 display: flex;

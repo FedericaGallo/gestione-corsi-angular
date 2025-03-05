@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { TokenService } from './token.service';
+import { map } from 'rxjs/operators';
 
 export interface Utente {
   nome?: String | null;
@@ -20,40 +21,31 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-private subject = new BehaviorSubject<boolean>(false);
-token$ : Observable<boolean> =  this.subject.asObservable();
-  ruolo: string = '';
+
+private subject = new BehaviorSubject<string>("");
+  token$ : Observable<string> =  this.subject.asObservable();
+  isLoggedIn$ : Observable<boolean>;
   url: string ='http://localhost:8080/auth';
   constructor(private httpClient : HttpClient, private tokenService : TokenService) {
-  const token = localStorage.getItem('token');
-  const expirationDate = localStorage.getItem('expirationDate');
-  var dateObject;
-  if(expirationDate){
-   dateObject = new Date(expirationDate);
-   }
-  if (token && dateObject && this.tokenService.isLogged(dateObject)){
-    console.log(expirationDate);
-      this.subject.next(true);
-  }else{
-   this.subject.next(false);
+ this.isLoggedIn$ = this.token$.pipe(map(token => !!token));
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.subject.next(token);
     }
-}
-ngOnInit(){
-    const token = localStorage.getItem('token');
-    if (token){
-        this.subject.next(true);
-    }else{
-     this.subject.next(false);
-      }
-  }
-public logIn(){
-  this.subject.next(true);
+    }
+ngOnInit(){}
+public logIn(token: string){
+  this.subject.next(token);
   }
 public logOut(){
-  this.subject.next(false);
+  this.subject.next("");
   }
 public isAdmin(): boolean{
-  const ruolo = localStorage.getItem('ruolo');
+  var ruolo;
+  if(typeof window !== 'undefined' && window.localStorage){
+   ruolo = localStorage.getItem('ruolo');
+    }
   if(ruolo){
      return ruolo.includes("ADMIN");
     }else return false;

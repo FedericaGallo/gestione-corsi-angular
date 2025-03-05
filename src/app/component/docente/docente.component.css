@@ -10,8 +10,12 @@ padding: 10px;
 }
 table {
 width:100%;
-
     }
+.table {
+--bs-table-bg-type: #8aa399;
+--bs-table-hover-bg: rgba(255, 255, 255, 0.1);
+ --bs-table-color-type: #212529;
+      }
 td:nth-child(2) {
  width:60%;
 }

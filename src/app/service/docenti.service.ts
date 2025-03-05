@@ -33,8 +33,6 @@ export interface Corso {
 export class DocentiService {
   url: string = 'http://localhost:8080/docente';
   docenti = signal<Docente[]>([]);
-  //docente = signal<DocenteCorsi | null | undefined>(undefined);
-  //docente: WritableSignal<DocenteCorsi | null | undefined> = signal<DocenteCorsi | null | undefined>(undefined);
   private docenteSubject = new BehaviorSubject<DocenteCorsi | null>(null);
   docente$ : Observable<DocenteCorsi | null> = this.docenteSubject.asObservable();
 constructor(private httpClient : HttpClient) {}

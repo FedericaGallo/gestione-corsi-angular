@@ -7,9 +7,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpInterceptorFn, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 
 function authInterceptor(req : HttpRequest<unknown>, next: HttpHandlerFn){
-
   const idToken = localStorage.getItem("token");
-
       if (idToken) {
         const cloned = req.clone({
           headers: req.headers.set("Authorization", "Bearer " + idToken)
@@ -17,7 +15,6 @@ function authInterceptor(req : HttpRequest<unknown>, next: HttpHandlerFn){
         console.log(cloned);
         return next(cloned);
       } else {
-        console.log("no token");
         return next(req);
       }
   }
