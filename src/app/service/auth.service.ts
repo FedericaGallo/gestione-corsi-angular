@@ -27,12 +27,29 @@ private subject = new BehaviorSubject<string>("");
   isLoggedIn$ : Observable<boolean>;
   url: string ='http://localhost:8080/auth';
   constructor(private httpClient : HttpClient, private tokenService : TokenService) {
- this.isLoggedIn$ = this.token$.pipe(map(token => !!token));
+ this.isLoggedIn$ = this.token$.pipe(map(token => !!token && token.trim() !== ''));
 
-    const token = localStorage.getItem("token");
-    if (token) {
-      this.subject.next(token);
+   this.initializeFromStorage();
     }
+
+    private initializeFromStorage(): void {
+
+      if (this.isLocalStorageAvailable()) {
+        const token = localStorage.getItem("token");
+        if (token) {
+          this.subject.next(token);
+          console.log(this.isLoggedIn$.subscribe())
+        }
+      }
+    }
+
+    private isLocalStorageAvailable(): boolean {
+
+      if (typeof window === 'undefined') {
+        return false;
+      }else {
+        return true;
+        }
     }
 ngOnInit(){}
 public logIn(token: string){

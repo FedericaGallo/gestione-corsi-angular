@@ -15,8 +15,10 @@ height: 44px;
 padding: 3px;
 }
 li {
+width: calc(100% / 4);
+text-align: center;
 text-transform: uppercase;
-margin: 0 15px;
+margin: 0 px;
 height: 100%;
 line-height: 50px;
 }
@@ -47,6 +49,7 @@ width: 33%;
 }
 .log {
 text-align: right;
+width: calc(100% / 3);
 }
 .image {
 width: calc(100% / 3);

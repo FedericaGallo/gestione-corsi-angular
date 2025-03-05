@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center padding-top-20">
+  <div class="d-flex justify-content-between align-items-center padding-top-20 header-f">
     <div class="d-flex align-items-center">
       <h2>lista corsi</h2>
     </div>
@@ -7,7 +7,7 @@
       <button>aggiungi corso</button>
     </div>
   </div>
-  <div class="padding-top-20">
+  <div class="padding-top-20 d-flex flex-column justify-content-between main-f">
     <table class="table custom-bg-orange table-hover">
       <thead>
       <tr>
@@ -42,7 +42,7 @@
       </tr>
       </tbody>
     </table>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
       <p class="num-pages">pagina {{pageNum()+1}} di {{totalPages()}}</p>
       <div class="pagination-arrows">
         <mat-icon (click)="changePage(-1)">arrow_back_ios</mat-icon>
