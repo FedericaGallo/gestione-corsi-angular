@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
+import { TokenService } from './token.service';
 
 export interface Utente {
   nome?: String | null;
@@ -23,12 +24,28 @@ private subject = new BehaviorSubject<boolean>(false);
 token$ : Observable<boolean> =  this.subject.asObservable();
   ruolo: string = '';
   url: string ='http://localhost:8080/auth';
-  constructor(private httpClient : HttpClient) {
-const token = localStorage.getItem('token');
-if (token){
-this.subject.next(true);
-  }
+  constructor(private httpClient : HttpClient, private tokenService : TokenService) {
+  const token = localStorage.getItem('token');
+  const expirationDate = localStorage.getItem('expirationDate');
+  var dateObject;
+  if(expirationDate){
+   dateObject = new Date(expirationDate);
+   }
+  if (token && dateObject && this.tokenService.isLogged(dateObject)){
+    console.log(expirationDate);
+      this.subject.next(true);
+  }else{
+   this.subject.next(false);
+    }
 }
+ngOnInit(){
+    const token = localStorage.getItem('token');
+    if (token){
+        this.subject.next(true);
+    }else{
+     this.subject.next(false);
+      }
+  }
 public logIn(){
   this.subject.next(true);
   }

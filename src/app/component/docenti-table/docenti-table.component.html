@@ -1,19 +1,14 @@
 <div class="container">
-
-  <div class="d-flex padding-top-20">
-    <p class="num-pages">pagina {{pageNum()+1}} di {{totalPages()}}</p>
-    <div class="pagination">
-      <mat-icon (click)="changePage(-1)">arrow_back_ios</mat-icon>
-      <p>{{pageNum()+1}}</p>
-      <mat-icon (click)="changePage(1)" class="padding-left">arrow_forward_ios</mat-icon>
+  <div class="d-flex justify-content-between align-items-center padding-top-20">
+    <div class="d-flex align-items-center">
+      <h2>lista docenti</h2>
     </div>
-    <p>{{firstElement()}}-{{lastElement()}} of {{totalElements()}}</p>
-    <div class="padding-top-20">
+    <div>
       <button (click)="openDialogAdd()">aggiungi docente</button>
     </div>
   </div>
   <div class="padding-top-20">
-    <table class="table table-hover table-dark ">
+    <table class="table custom-bg-orange table-hover">
       <thead>
       <tr>
         <th scope="col"></th>
@@ -27,7 +22,9 @@
       <tbody>
 
       <tr *ngFor="let docente of docenti()">
-        <td > <a [routerLink]="'/docenti/' + docente.id" routerLinkActive="selected"><mat-icon>open_in_new</mat-icon></a></td>
+        <td><a [routerLink]="'/docenti/' + docente.id" routerLinkActive="selected">
+          <mat-icon>open_in_new</mat-icon>
+        </a></td>
         <td>{{docente.nome}}</td>
         <td>{{docente.cognome + ' '}}</td>
         <td>{{docente.descrizione? docente.descrizione : ''}}</td>
@@ -35,12 +32,21 @@
           <mat-icon (click)="openDialogView(docente)">remove_red_eye</mat-icon>
           @if(authService.isAdmin()) {
           <mat-icon (click)="openDialogEdit(docente)">edit</mat-icon>
-          <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>}
+          <mat-icon (click)="openDialogDelete(docente)">delete</mat-icon>
+          }
         </td>
       </tr>
       </tbody>
     </table>
-
+    <div class="d-flex justify-content-between">
+      <p class="num-pages">pagina {{pageNum()+1}} di {{totalPages()}}</p>
+      <div class="pagination-arrows">
+        <mat-icon (click)="changePage(-1)">arrow_back_ios</mat-icon>
+        <p>{{pageNum()+1}}</p>
+        <mat-icon (click)="changePage(1)" class="padding-left">arrow_forward_ios</mat-icon>
+      </div>
+      <p>{{firstElement()}}-{{lastElement()}} of {{totalElements()}}</p>
+    </div>
   </div>
 
 </div>

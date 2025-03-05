@@ -10,10 +10,11 @@ import { EditDocenteComponent } from '../edit-docente/edit-docente.component';
 import { ViewDocenteComponent } from '../view-docente/view-docente.component';
 import { RouterLink } from '@angular/router';
 import {AuthService } from '../../service/auth.service';
+import {MatButtonModule} from '@angular/material/button';
 @Component({
   selector: 'app-docenti-table',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatDialogModule, RouterLink],
+  imports: [CommonModule, MatIconModule, MatDialogModule, RouterLink, MatButtonModule],
   templateUrl: './docenti-table.component.html',
   styleUrl: './docenti-table.component.css'
 })

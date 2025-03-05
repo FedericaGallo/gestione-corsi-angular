@@ -34,4 +34,8 @@ get ruolo(){
    public isLoggedIn() {
        return moment().isBefore(this.expirationDate);
    }
+
+  public isLogged(expirationDate: Date) {
+        return moment().isBefore(expirationDate);
+    }
 }

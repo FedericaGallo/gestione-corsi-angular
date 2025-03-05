@@ -33,9 +33,9 @@ constructor(private docentiService: DocentiService, private destroyRef: DestroyR
 ngOnInit(){
   this.isFetching.set(true);
   this.loadDocenti(0);
-  console.log(this.route.snapshot);
+  //console.log(this.route.snapshot);
   this.router.events.subscribe(() => {
-       console.log(this.router.url);
+       //console.log(this.router.url);
         });
   }
 onSelectedDocente(id: number){
@@ -50,9 +50,8 @@ onSelectedDocente(id: number){
             }
       }); */
   const url:any = this.route.snapshot.url;
-  console.log(url);
+  //console.log(url);
   if (url.includes('add')){
-     console.log('ciao');
     this.location.back();
     //this.router.navigate(['docenti']);
     }
@@ -73,13 +72,13 @@ loadDocenti(page: number){
       next: (response: any) => {
               //console.log(response.body);
               //console.log(response.status);
-              console.log(response.body);
+              //console.log(response.body);
               this.docenti.set(response.body.content);
               this.pageNum.set(response.body.pageable.pageNumber);
               this.totalPages.set(response.body.totalPages);
-              console.log(response.body);
-              console.log(this.pageNum());
-              console.log(this.totalPages());
+              //console.log(response.body);
+              //console.log(this.pageNum());
+              //console.log(this.totalPages());
               },
             error: (error: any)=> {
               this.error.set(error.message);

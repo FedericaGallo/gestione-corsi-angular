@@ -44,9 +44,10 @@ div div{
 width: 33%;
 
 }
-.ricerca {
+.log {
 text-align: right;
 }
 .image {
+width: calc(100% / 3);
 text-align: center;
 }
