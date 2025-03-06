@@ -18,7 +18,7 @@ export interface Corso {
   providedIn: 'root'
 })
 export class CorsiService {
- url: string = 'http://localhost:8080/docente';
+ url: string = 'http://localhost:8080/corso';
    corsi = signal<Corso[]>([]);
   constructor(private httpClient : HttpClient) { }
   fetchCorsi(page: number) {
@@ -38,5 +38,22 @@ postCorso(url: string, newCorso: Corso){
         })
       );
   }
-deleteCorso(){return 'ciao';}
+deleteCorso(id: number){
+ const url = `${this.url}/deleteCorso/${id}`;
+  return this.httpClient.delete<Corso>(url)
+    .pipe(
+      catchError((error: any) => {
+        return throwError(() => error);
+      })
+    );
+}
+public updateCorso(id: number, updatedCorso: Corso) {
+  const url = `${this.url}/updateCorso/${id}`;
+  return this.httpClient.put<Corso>(url, updatedCorso)
+    .pipe(
+      catchError((error: any) => {
+        return throwError(() => error);
+      })
+    );
+}
 }

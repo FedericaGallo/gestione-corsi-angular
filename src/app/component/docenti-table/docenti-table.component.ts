@@ -120,15 +120,7 @@ openDialogView(docente : Docente){
         height: '55vh',
         data: {docente: docente}
         });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result !== undefined) {
-                console.log(result);
-               const subscription = this.docentiService.updateDocente(docente.id, result).subscribe(()=>{
-                this.loadDocenti(this.pageNum());
-                 });
 
-               }
-             });
   }
 changePage(direction: number){
  if(this.pageNum() == 0 && direction == -1 || this.pageNum() == this.totalPages() - 1 && direction == 1){

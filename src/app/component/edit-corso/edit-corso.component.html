@@ -7,7 +7,7 @@
       <input matInput type="text" name="nome" id="nome" formControlName="nomeCorso">
     </mat-form-field >
     <div class="d-flex gap-2 justify-content-center">
-      <mat-form-field>
+      <mat-form-field class="half-width">
         <mat-label>Data inizio corso</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dataInizio">
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -15,7 +15,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="half-width">
         <mat-label>Data fine corso</mat-label>
         <input matInput [matDatepicker]="picker2" formControlName="dataFine" [min]="form.get('dataInizio')?.value">
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -23,6 +23,16 @@
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
     </div>
+
+    <mat-form-field  class="example-full-width mt-3">
+      <mat-label>scegli docente</mat-label>
+      <mat-select formControlName="idDocenteDTO">
+        @for (docente of data.docenti; track docente) {
+        <mat-option [value]="docente.id">{{docente.nome}} {{docente.cognome}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <mat-dialog-actions>
       <div class="button">
         <button mat-raised-button cdkFocusInitial type="submit" (click)="onSubmit()">salva</button>

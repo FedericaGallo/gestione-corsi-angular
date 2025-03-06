@@ -7,8 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddCorsoComponent } from '../add-corso/add-corso.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { EditDocenteComponent } from '../edit-docente/edit-docente.component';
-import { ViewDocenteComponent } from '../view-docente/view-docente.component';
+import { EditCorsoComponent } from '../edit-corso/edit-corso.component';
+import { ViewCorsoComponent } from '../view-corso/view-corso.component';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -106,59 +106,54 @@ isFetching = signal(false);
                                                                          day: '2-digit'
                                                                        }).split('/').reverse().join('-');
                     console.log(result);
-                   this.docentiService.postCorso('http://localhost:8080/corso/addCorso', result);
+                   this.corsiService.postCorso('http://localhost:8080/corso/addCorso', result).subscribe(()=>{
+                     this.loadCorsi(this.pageNum());
+                     });
                   }
                 });
           }
-        /*
-        openDialogDelete(docente : Docente){
+
+        openDialogDelete(corso : Corso){
            const dialogRef =  this.dialog.open(ConfirmDialogComponent, {
                  width: '350px',
                  height: '200px',
-                 data: {entity: docente}
+                 data: {entity: corso}
                 });
               dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                         console.log(result);
-                       const subscription = this.docentiService.deleteDocente(result).subscribe(()=>{
-                        this.loadDocenti(this.pageNum());
+                       const subscription = this.corsiService.deleteCorso(corso.id).subscribe(()=>{
+                        this.loadCorsi(this.pageNum());
                          });
 
                        }
                      });
           }
-        openDialogEdit(docente : Docente){
-           const dialogRef =  this.dialog.open(EditDocenteComponent, {
+
+        openDialogEdit(corso : Corso){
+           const dialogRef =  this.dialog.open(EditCorsoComponent, {
                 width: '60vw',
                 height: '55vh',
-                data: {docente: docente}
+                data: {corso: corso, docenti: this.docenti()}
                 });
               dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                         console.log(result);
-                       const subscription = this.docentiService.updateDocente(docente.id, result).subscribe(()=>{
-                        this.loadDocenti(this.pageNum());
+                       const subscription = this.corsiService.updateCorso(corso.id, result).subscribe(()=>{
+                        this.loadCorsi(this.pageNum());
                          });
 
                        }
                      });
           }
-        openDialogView(docente : Docente){
-           const dialogRef =  this.dialog.open(ViewDocenteComponent, {
+        openDialogView(corso : Corso){
+           const dialogRef =  this.dialog.open(ViewCorsoComponent, {
                 width: '60vw',
                 height: '55vh',
-                data: {docente: docente}
+                data: {corso: corso}
                 });
-              dialogRef.afterClosed().subscribe(result => {
-                if (result !== undefined) {
-                        console.log(result);
-                       const subscription = this.docentiService.updateDocente(docente.id, result).subscribe(()=>{
-                        this.loadDocenti(this.pageNum());
-                         });
 
-                       }
-                     });
-          } */
+          }
         changePage(direction: number){
          if(this.pageNum() == 0 && direction == -1 || this.pageNum() == this.totalPages() - 1 && direction == 1){
             return;

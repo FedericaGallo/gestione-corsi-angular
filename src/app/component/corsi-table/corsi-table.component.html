@@ -33,10 +33,10 @@
         <td>{{corso.dataInizio}}</td>
         <td>{{corso.dataFine? corso.dataFine : ''}}</td>
         <td>
-          <mat-icon>remove_red_eye</mat-icon>
+          <mat-icon (click)="openDialogView(corso)">remove_red_eye</mat-icon>
           @if(authService.isAdmin()) {
-          <mat-icon>edit</mat-icon>
-          <mat-icon>delete</mat-icon>
+          <mat-icon (click)="openDialogEdit(corso)">edit</mat-icon>
+          <mat-icon (click)="openDialogDelete(corso)">delete</mat-icon>
           }
         </td>
       </tr>

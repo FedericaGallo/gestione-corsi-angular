@@ -7,15 +7,16 @@ import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
-
+import {MatSelectModule} from '@angular/material/select';
 export interface DialogData {
   corso: any;
+  docenti: any;
 }
 @Component({
   selector: 'app-edit-corso',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatDatepickerModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatDialogModule, ReactiveFormsModule, CommonModule ],
+  imports: [MatDatepickerModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatDialogModule, ReactiveFormsModule, CommonModule, MatSelectModule ],
   templateUrl: './edit-corso.component.html',
   styleUrl: './edit-corso.component.css'
 })
@@ -31,7 +32,10 @@ export class EditCorsoComponent {
     }),
   dataFine: new FormControl(this.data.corso.dataFine, {
     validators: [ Validators.required ]
-     })
+     }),
+   idDocenteDTO: new FormControl('', {
+     validators: [ Validators.required ]
+    })
   })
 
 onNoClick(): void {
