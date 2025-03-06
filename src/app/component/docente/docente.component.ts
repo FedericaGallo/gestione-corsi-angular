@@ -4,7 +4,7 @@ import { DocentiService, DocenteCorsi, Corso } from '../../service/docenti.servi
 import { signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AddCorsoComponent } from '../add-corso/add-corso.component';
+import { AddCorsoTeacherComponent } from '../add-corso-teacher/add-corso-teacher.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EditCorsoComponent } from '../edit-corso/edit-corso.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,10 +28,10 @@ ngOnInit(){
   this.docentiService.docente$.subscribe((docenteAggiornato)=>{
     this.docente.set(docenteAggiornato)
     });
-//this.aggiornaDocente();
+
   }
  openDialogAdd(){
- const dialogRef = this.dialog.open(AddCorsoComponent, {
+ const dialogRef = this.dialog.open(AddCorsoTeacherComponent, {
      width: '60vw',
      height: '55vh',
      });

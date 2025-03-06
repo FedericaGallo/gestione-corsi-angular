@@ -30,6 +30,13 @@ export class CorsiService {
         .pipe(catchError((error: any)=>{
           return throwError(() => new Error(errorMessage))}));
   }
-postCorso(url: string, corso: Corso){return 'ciao';}
+postCorso(url: string, newCorso: Corso){
+   return this.httpClient.post<Corso>(url, newCorso)
+      .pipe(
+        catchError((error: any) => {
+          return throwError(() => error);
+        })
+      );
+  }
 deleteCorso(){return 'ciao';}
 }

@@ -3,6 +3,12 @@ width: 1400px;
 margin: 0 auto;
 height: calc(100vh - 50px);
 }
+.header-f {
+height: 80px;
+}
+.main-f {
+height: calc(100vh - 140px);
+}
 .example-button-container {
   display: flex;
   justify-content: center;

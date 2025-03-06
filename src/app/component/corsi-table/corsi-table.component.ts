@@ -1,10 +1,11 @@
 import { Component, DestroyRef, signal, computed } from '@angular/core';
 import { CorsiService, Corso } from '../../service/corsi.service';
+import { DocentiService, Docente } from '../../service/docenti.service';
 import { throwError } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AddDocenteComponent } from '../add-docente/add-docente.component';
+import { AddCorsoComponent } from '../add-corso/add-corso.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { EditDocenteComponent } from '../edit-docente/edit-docente.component';
 import { ViewDocenteComponent } from '../view-docente/view-docente.component';
@@ -34,16 +35,19 @@ isFetching = signal(false);
     });
     firstElement = computed(() => (this.lastElement() - this.numberOfElements())+1 );
     corsi = signal<Corso[]>([]);
+    docenti = signal<Docente[]>([]);
      error = signal('');
      newCorso = signal<any>({});
        constructor(
          private corsiService: CorsiService,
          private destroyRef: DestroyRef,
          public dialog: MatDialog,
-         public authService: AuthService){}
+         public authService: AuthService,
+         public docentiService: DocentiService){}
       ngOnInit(){
         this.isFetching.set(true);
         this.loadCorsi(0);
+        this.getDocenti();
         }
       loadCorsi(page: number){
           const subscription = this.corsiService.fetchCorsi(page).subscribe({
@@ -68,20 +72,45 @@ isFetching = signal(false);
             subscription.unsubscribe();
             })
           }
-      /*   openDialogAdd(){
-         const dialogRef = this.dialog.open(AddDocenteComponent, {
+        getDocenti(){
+          const subscription = this.docentiService.getDocenti().subscribe({
+            next: (res: any) => {
+              this.docenti.set(res.body);
+              console.log(this.docenti());
+              },
+            error: (error: any)=> {
+              this.error.set(error.message);
+              console.log(error);
+              }
+            });
+           this.destroyRef.onDestroy(() => {
+                      subscription.unsubscribe();
+                      })
+          }
+        openDialogAdd(){
+         const dialogRef = this.dialog.open(AddCorsoComponent, {
              width: '60vw',
              height: '55vh',
+             data: {docenti: this.docenti()}
              });
-            dialogRef.afterClosed().subscribe(result => {
-                 if (result !== undefined) {
-                   console.log(result);
-                  this.corsiService.postCorso('http://localhost:8080/docente/addDocente', result).subscribe(()=>{
-                    this.loadDocenti(this.pageNum());
-                    });
-                 }
-               });
+          dialogRef.afterClosed().subscribe(result => {
+                  if (result !== undefined) {
+                    result.dataInizio =  result.dataInizio.toLocaleDateString('it-IT', {
+                                                             year: 'numeric',
+                                                             month: '2-digit',
+                                                             day: '2-digit'
+                                                           }).split('/').reverse().join('-');
+                      result.dataFine =  result.dataFine.toLocaleDateString('it-IT', {
+                                                                         year: 'numeric',
+                                                                         month: '2-digit',
+                                                                         day: '2-digit'
+                                                                       }).split('/').reverse().join('-');
+                    console.log(result);
+                   this.docentiService.postCorso('http://localhost:8080/corso/addCorso', result);
+                  }
+                });
           }
+        /*
         openDialogDelete(docente : Docente){
            const dialogRef =  this.dialog.open(ConfirmDialogComponent, {
                  width: '350px',

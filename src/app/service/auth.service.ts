@@ -21,28 +21,31 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-
-private subject = new BehaviorSubject<string>("");
-  token$ : Observable<string> =  this.subject.asObservable();
-  isLoggedIn$ : Observable<boolean>;
+private subject = new BehaviorSubject<boolean>(false);
+  //token$ : Observable<string> =  this.subject.asObservable();
+  isLoggedIn$ : Observable<boolean> =  this.subject.asObservable();
   url: string ='http://localhost:8080/auth';
   constructor(private httpClient : HttpClient, private tokenService : TokenService) {
- this.isLoggedIn$ = this.token$.pipe(map(token => !!token && token.trim() !== ''));
+ //this.isLoggedIn$ = this.token$.pipe(map(token => !!token));
 
-   this.initializeFromStorage();
+   this.checkToken();
     }
 
-    private initializeFromStorage(): void {
+    public checkToken(): void {
 
       if (this.isLocalStorageAvailable()) {
         const token = localStorage.getItem("token");
-        if (token) {
-          this.subject.next(token);
-          console.log(this.isLoggedIn$.subscribe())
-        }
+        const expirationDate = localStorage.getItem("expirationDate");
+        if (token && expirationDate) {
+          const data = new Date(expirationDate);
+          if (data){
+              this.subject.next(this.tokenService.isLogged(data));
+            }
+        }else {
+          this.subject.next(false);
+          }
       }
     }
-
     private isLocalStorageAvailable(): boolean {
 
       if (typeof window === 'undefined') {
@@ -53,10 +56,10 @@ private subject = new BehaviorSubject<string>("");
     }
 ngOnInit(){}
 public logIn(token: string){
-  this.subject.next(token);
+  this.subject.next(true);
   }
 public logOut(){
-  this.subject.next("");
+  this.subject.next(false);
   }
 public isAdmin(): boolean{
   var ruolo;

@@ -37,42 +37,25 @@ export class DocentiService {
   docente$ : Observable<DocenteCorsi | null> = this.docenteSubject.asObservable();
 constructor(private httpClient : HttpClient) {}
 
-  /*getDocenti(){
-    return this.docenti();
-    }
-  getDocente(){
-      return this.docente();
-      }*/
 
-/*getDocenti() {
-   const subscribtion = this.httpClient.get<{docenti : Docente[]}>('http://localhost:8080/docente/findAll', {observe: 'response'}).subscribe({
-      next: (response) => {
-        console.log(response.body?.docenti);
-        console.log(response.status);
-        }
-      });
-}*/
-
-/* loadDocenti(){
-  return this.fetchDocenti('http://localhost:8080/docente/findAll','errore nella chiamata al server')
-  } */
+getDocenti() {
+   const errorMessage = 'errore nella chiamata al server';
+  return this.httpClient.get<Docente[]>('http://localhost:8080/docente/findAll', {observe: 'response'})
+   .pipe(catchError((error: any)=>{
+     return throwError(() => new Error(errorMessage))
+     }));
+}
 
 // 'operatore catchError intercetta eventuali errori che potrebbero verificarsi durante la richiesta HTTP. throwError restituisce un observable che emette un errore.
 fetchDocenti(page: number) {
   const params = new HttpParams()
     .set('page', page.toString());
-  const url = 'http://localhost:8080/docente/findAll';
+  const url = 'http://localhost:8080/docente/findAllPagination';
   const errorMessage = 'errore nella chiamata al server';
    return this.httpClient.get<Docente[]>(url, {params, observe: 'response'})
       .pipe(catchError((error: any)=>{
         return throwError(() => new Error(errorMessage))}));
 }
-
-/*public fetchDocente(url: string) {
-   return this.httpClient.get<DocenteCorsi>(url, {observe: 'response'})
-      .pipe(catchError((error: any)=>{
-        return throwError(() => error);
-}))}*/
 
 public getDocente(url: string){
   this.httpClient.get<DocenteCorsi>(url).subscribe((data)=> {

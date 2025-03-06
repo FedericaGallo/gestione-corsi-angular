@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 export class HeaderComponent {
 entity: string = '';
 currentRoute: string = '';
-constructor(private route: ActivatedRoute, private router: Router) {}
+constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) {}
 ngOnInit() {
     this.router.events.subscribe(() => {
       this.currentRoute = this.router.url;
@@ -29,5 +30,6 @@ logOut(){
     localStorage.removeItem("expirationDate");
     localStorage.removeItem("ruolo");
     this.router.navigate(["/login"]);
+    this.authService.logOut();
   }
 }

@@ -1,29 +1,23 @@
 import { Component, inject, ViewChild, ElementRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialogModule, MatDialogRef,  MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-
-export interface DialogData {
-  docenti: any;
-}
 
 @Component({
-  selector: 'app-add-corso',
+  selector: 'app-add-corso-teacher',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [CommonModule, MatSelectModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatDatepickerModule],
-  templateUrl: './add-corso.component.html',
-  styleUrl: './add-corso.component.css'
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatDatepickerModule],
+  templateUrl: './add-corso-teacher.component.html',
+  styleUrl: './add-corso-teacher.component.css'
 })
-export class AddCorsoComponent {
-  readonly dialogRef = inject(MatDialogRef<AddCorsoComponent>);
-  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+export class AddCorsoTeacherComponent {
+ readonly dialogRef = inject(MatDialogRef<AddCorsoTeacherComponent>);
   form = new FormGroup({
   nomeCorso: new FormControl('', {
     validators: [ Validators.required ]
@@ -33,10 +27,7 @@ export class AddCorsoComponent {
     }),
   dataFine: new FormControl('', {
     validators: [ Validators.required ]
-     }),
-   idDocenteDTO: new FormControl('', {
-       validators: [ Validators.required ]
-        })
+     })
   })
 today: Date = new Date();
 onNoClick(): void {
