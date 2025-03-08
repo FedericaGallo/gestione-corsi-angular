@@ -1,0 +1,15 @@
+.dialog-content {
+padding:20px;
+}
+input {
+width: 100%;
+}
+.example-full-width {
+  width: 100%;
+}
+.button {
+margin: 0 auto;
+}
+.half-width{
+width: 50%;
+}

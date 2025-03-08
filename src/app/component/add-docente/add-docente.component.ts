@@ -15,33 +15,39 @@ export interface DialogData {
 @Component({
   selector: 'app-add-docente',
   standalone: true,
-  imports: [ReactiveFormsModule, MatDialogModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule ],
+  imports: [
+    ReactiveFormsModule,
+    MatDialogModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './add-docente.component.html',
-  styleUrl: './add-docente.component.css'
+  styleUrl: './add-docente.component.css',
 })
 export class AddDocenteComponent {
   //@ViewChild('dialog') dialog! :ElementRef<HTMLDialogElement>;
   form = new FormGroup({
-  nome: new FormControl('', {
-    validators: [ Validators.required ]
+    nome: new FormControl('', {
+      validators: [Validators.required],
     }),
-  cognome: new FormControl('', {
-    validators: [ Validators.required ]
+    cognome: new FormControl('', {
+      validators: [Validators.required],
     }),
-  descrizione: new FormControl('', {
-    validators: [ Validators.minLength(6) ]
-     })
-  })
-readonly dialogRef = inject(MatDialogRef<AddDocenteComponent>);
-onNoClick(): void {
+    descrizione: new FormControl('', {
+      validators: [Validators.minLength(6)],
+    }),
+  });
+  readonly dialogRef = inject(MatDialogRef<AddDocenteComponent>);
+  onNoClick(): void {
     this.dialogRef.close();
   }
 
-onSubmit() {
+  onSubmit() {
     if (this.form.valid) {
-       this.dialogRef.close(this.form.value);
+      this.dialogRef.close(this.form.value);
       console.log('Form Submitted!', this.form.value);
-
     }
   }
 }

@@ -1,10 +1,15 @@
 <header>
   <ul>
-      <li><a routerLink="docenti">docenti</a></li>
-      <li><a routerLink="docenti/table">docenti Table</a></li>
-      <li><a routerLink="corsi/table">allievi</a></li>
-      <li><a routerLink="corsi/table">corsi</a></li>
+      <li [class.active]="'docenti' == currentEntity()"><a routerLink="docenti/table" (click)="onSelectedEntity('docenti')" >docenti Table</a></li>
+      <li [class.active]="'allievi' == currentEntity()"><a routerLink="discenti/table" (click)="onSelectedEntity('allievi')" >allievi</a></li>
+      <li [class.active]="'corsi' == currentEntity()"><a routerLink="corsi/table" (click)="onSelectedEntity('corsi')" >corsi</a></li>
   </ul>
   <div class="image"><img ngOptimizedImage src="https://durkanlab.org/wp-content/uploads/2017/06/ucam_logo.jpg"></div>
-  <div class="log"><button (click)="logOut()">disconnetti</button></div>
+
+  <div class="log">
+    <button (click)="logOut()">{{logButton()}}</button>
+
+    <button *ngIf="!isLoggedIn()" (click)="logOut()">registrati</button>
+  </div>
+
 </header>

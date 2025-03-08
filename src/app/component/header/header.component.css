@@ -15,7 +15,7 @@ height: 44px;
 padding: 3px;
 }
 li {
-width: calc(100% / 4);
+width: calc(100% / 3);
 text-align: center;
 text-transform: uppercase;
 margin: 0 px;
@@ -39,6 +39,7 @@ a {
   cursor: pointer;
   text-decoration: none;
   display: block;
+  color:#212529;
 }
 a:hover {
 color: blue;
@@ -51,7 +52,24 @@ width: 33%;
 text-align: right;
 width: calc(100% / 3);
 }
+.log button {
+text-transform: uppercase;
+background-color: #8aa399;
+border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
 .image {
 width: calc(100% / 3);
 text-align: center;
+}
+.active {
+background-color: #8aa399;
+color: #212529;
+}
+.active a {
+  color: white;
 }

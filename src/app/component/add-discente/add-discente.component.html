@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Inserisci i dati del discente</h2>
+<mat-dialog-content class="dialog-content">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="d-flex gap-2">
+      <mat-form-field class="example-full-width">
+        <mat-label>nome</mat-label>
+        <input matInput type="text" name="nome" id="nome" formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>cognome</mat-label>
+        <input matInput type="text" name="cognome" id="cognome" formControlName="cognome">
+      </mat-form-field>
+    </div>
+    <div class="d-flex gap-2">
+      <mat-form-field class="example-full-width">
+        <mat-label>matricola</mat-label>
+        <input matInput type="text" name="matricola" id="matricola" formControlName="matricola">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>data di nascita</mat-label>
+        <input matInput [matDatepicker]="picker" name="dataDiNascita" id="dataDiNascita" formControlName="dataDiNascita">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <mat-dialog-actions>
+      <div class="button">
+        <button mat-raised-button cdkFocusInitial type="submit" (click)="onSubmit()">salva</button>
+        <button mat-raised-button (click)="onNoClick()">annulla</button>
+      </div>
+    </mat-dialog-actions>
+    <p *ngIf="form.controls.nome.touched && form.controls.nome.invalid && form.controls.nome.dirty">
+      Inserisci un nome valido
+    </p>
+    <p *ngIf="form.controls.cognome.touched && form.controls.cognome.invalid && form.controls.cognome.dirty">
+      Inserisci un cognome valido
+    </p>
+    <p *ngIf="form.controls.matricola.touched && form.controls.matricola.invalid && form.controls.matricola.dirty">
+      Inserisci una matricola valida
+    </p>
+  </form>
+</mat-dialog-content>

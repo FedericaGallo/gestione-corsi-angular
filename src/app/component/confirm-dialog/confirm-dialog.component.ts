@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocentiService } from '../../service/docenti.service';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
 export interface DialogData {
@@ -13,15 +13,13 @@ export interface DialogData {
   standalone: true,
   imports: [MatDialogModule, MatButtonModule, CommonModule],
   templateUrl: './confirm-dialog.component.html',
-  styleUrl: './confirm-dialog.component.css'
+  styleUrl: './confirm-dialog.component.css',
 })
 export class ConfirmDialogComponent {
-
-constructor(private docentiService: DocentiService) {}
-readonly dialogRef = inject(MatDialogRef<ConfirmDialogComponent>);
-readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-onNoClick(): void {
+  constructor() {}
+  readonly dialogRef = inject(MatDialogRef<ConfirmDialogComponent>);
+  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+  onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

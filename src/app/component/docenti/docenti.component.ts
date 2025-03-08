@@ -7,15 +7,22 @@ import { DettagliComponent } from '../dettagli/dettagli.component';
 import { CardComponent } from '../card/card.component';
 import { signal } from '@angular/core';
 import { throwError } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet, RouterLink, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-docenti',
   standalone: true,
-  imports: [CommonModule, DettagliComponent, CardComponent, MatIconModule, RouterOutlet, RouterLink],
+  imports: [
+    CommonModule,
+    DettagliComponent,
+    CardComponent,
+    MatIconModule,
+    RouterOutlet,
+    RouterLink,
+  ],
   templateUrl: './docenti.component.html',
-  styleUrl: './docenti.component.css'
+  styleUrl: './docenti.component.css',
 })
 export class DocentiComponent {
   pageNum = signal<number>(0);
@@ -27,21 +34,27 @@ export class DocentiComponent {
   error = signal('');
   //selectedDocenteOb: Docente;
   //grazie al costruttore avviene l'iniezione delle dipendenze
-constructor(private docentiService: DocentiService, private destroyRef: DestroyRef, private route: ActivatedRoute, private router: Router, private location: Location) { }
-// private docentiService = inject(DocentiService); in alternariva si puo usare questa sintassi per l'iniezione delle dipendenze
+  constructor(
+    private docentiService: DocentiService,
+    private destroyRef: DestroyRef,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) {}
+  // private docentiService = inject(DocentiService); in alternariva si puo usare questa sintassi per l'iniezione delle dipendenze
 
-ngOnInit(){
-  this.isFetching.set(true);
-  this.loadDocenti(0);
-  //console.log(this.route.snapshot);
-  this.router.events.subscribe(() => {
-       //console.log(this.router.url);
-        });
+  ngOnInit() {
+    this.isFetching.set(true);
+    this.loadDocenti(0);
+    //console.log(this.route.snapshot);
+    this.router.events.subscribe(() => {
+      //console.log(this.router.url);
+    });
   }
-onSelectedDocente(id: number){
-  this.selectedDocente = id;
-  const docentiArray = this.docenti();
-  /*  this.router.events.subscribe(() => {
+  onSelectedDocente(id: number) {
+    this.selectedDocente = id;
+    const docentiArray = this.docenti();
+    /*  this.router.events.subscribe(() => {
      const currentRoute = this.router.url;
         if (currentRoute) {
               //this.location.back();
@@ -49,46 +62,49 @@ onSelectedDocente(id: number){
              this.router.navigate(['docenti']);
             }
       }); */
-  const url:any = this.route.snapshot.url;
-  //console.log(url);
-  if (url.includes('add')){
-    this.location.back();
-    //this.router.navigate(['docenti']);
+    const url: any = this.route.snapshot.url;
+    //console.log(url);
+    if (url.includes('add')) {
+      this.location.back();
+      //this.router.navigate(['docenti']);
     }
-  if(docentiArray){
-  this.selectedDocenteObject = docentiArray.find((docente)=> docente.id === id);
- //console.log(this.selectedDocenteObject);
+    if (docentiArray) {
+      this.selectedDocenteObject = docentiArray.find((docente) => docente.id === id);
+      //console.log(this.selectedDocenteObject);
+    }
   }
-}
-changePage(direction: number){
- if(this.pageNum() == 0 && direction == -1 || this.pageNum() == this.totalPages() - 1 && direction == 1){
-    return;
+  changePage(direction: number) {
+    if (
+      (this.pageNum() == 0 && direction == -1) ||
+      (this.pageNum() == this.totalPages() - 1 && direction == 1)
+    ) {
+      return;
     }
     this.loadDocenti(this.pageNum() + direction);
   }
 
-loadDocenti(page: number){
-  const subscription = this.docentiService.fetchDocenti(page).subscribe({
+  loadDocenti(page: number) {
+    const subscription = this.docentiService.fetchDocenti(page).subscribe({
       next: (response: any) => {
-              //console.log(response.body);
-              //console.log(response.status);
-              //console.log(response.body);
-              this.docenti.set(response.body.content);
-              this.pageNum.set(response.body.pageable.pageNumber);
-              this.totalPages.set(response.body.totalPages);
-              //console.log(response.body);
-              //console.log(this.pageNum());
-              //console.log(this.totalPages());
-              },
-            error: (error: any)=> {
-              this.error.set(error.message);
-              },
-            complete: ()=>{
-              this.isFetching.set(false);
-              }
-      });
-  this.destroyRef.onDestroy(() => {
-    subscription.unsubscribe();
-    })
+        //console.log(response.body);
+        //console.log(response.status);
+        //console.log(response.body);
+        this.docenti.set(response.body.content);
+        this.pageNum.set(response.body.pageable.pageNumber);
+        this.totalPages.set(response.body.totalPages);
+        //console.log(response.body);
+        //console.log(this.pageNum());
+        //console.log(this.totalPages());
+      },
+      error: (error: any) => {
+        this.error.set(error.message);
+      },
+      complete: () => {
+        this.isFetching.set(false);
+      },
+    });
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }

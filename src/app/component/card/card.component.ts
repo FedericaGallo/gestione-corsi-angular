@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { Docente } from '../../service/docenti.service';
 import { Input, Output, EventEmitter } from '@angular/core';
 
@@ -15,14 +15,14 @@ type User = {
   standalone: true,
   imports: [],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.css'
+  styleUrl: './card.component.css',
 })
 export class CardComponent {
- @Input({required: true}) docente!: Docente;
- @Input({required: true}) selected!: boolean;
- @Output() select = new EventEmitter<number>();
+  @Input({ required: true }) docente!: Docente;
+  @Input({ required: true }) selected!: boolean;
+  @Output() select = new EventEmitter<number>();
 
- onSelect(){
-   this.select.emit(this.docente.id);
-   }
+  onSelect() {
+    this.select.emit(this.docente.id);
+  }
 }

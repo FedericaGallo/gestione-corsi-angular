@@ -1,0 +1,14 @@
+
+
+
+
+<mat-dialog-content class="dialog-content">
+
+ <h4 mat-dialog-title >Sei sicuro di voler disiscrivere {{data.discente.nome + ' ' + data.discente.cognome}} dal corso {{data.corso.nomeCorso}}???</h4>
+  <mat-dialog-actions>
+    <div class="button">
+      <button mat-raised-button (click)="onNoClick()">Annulla</button>
+      <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>Conferma</button>
+    </div>
+  </mat-dialog-actions>
+</mat-dialog-content>

@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Modifica dati del discente</h2>
+<mat-dialog-content class="dialog-content">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="d-flex gap-2">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput type="text" name="nome" id="nome" formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Cognome</mat-label>
+        <input matInput type="text" name="cognome" id="cognome" formControlName="cognome">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Matricola</mat-label>
+      <input matInput type="text" name="matricola" id="matricola" formControlName="matricola">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Data di nascita</mat-label>
+      <input matInput [matDatepicker]="picker" name="dataDiNascita" id="dataDiNascita" formControlName="dataDiNascita">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-dialog-actions>
+      <div class="button">
+        <button mat-raised-button cdkFocusInitial type="submit" (click)="onSubmit()">Salva</button>
+        <button mat-raised-button (click)="onNoClick()">Annulla</button>
+      </div>
+    </mat-dialog-actions>
+
+    <p *ngIf="form.controls.nome.touched && form.controls.nome.invalid">
+      Il nome è obbligatorio
+    </p>
+    <p *ngIf="form.controls.cognome.touched && form.controls.cognome.invalid">
+      Il cognome è obbligatorio
+    </p>
+    <p *ngIf="form.controls.matricola.touched && form.controls.matricola.invalid">
+      La matricola è obbligatoria
+    </p>
+    <p *ngIf="form.controls.dataDiNascita.touched && form.controls.dataDiNascita.invalid">
+      Inserisci una data di nascita valida
+    </p>
+  </form>
+</mat-dialog-content>
