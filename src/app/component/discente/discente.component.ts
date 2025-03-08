@@ -76,12 +76,12 @@ export class DiscenteComponent {
       data: { corsi: this.corsiNonSeguiti() },
     });
     dialogRef.afterClosed().subscribe((result) => {
-        if (result !== undefined) {
-          console.log(result);
-          const subscription = this.discentiService
-            .iscriviDiscente(this.discente()!.id, result)
-            .subscribe();
-        }
-      });
+      if (result !== undefined) {
+        console.log(result);
+        const subscription = this.discentiService
+          .iscriviDiscente(this.discente()!.id, result)
+          .subscribe();
+      }
+    });
   }
 }

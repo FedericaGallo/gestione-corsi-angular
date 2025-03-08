@@ -1,3 +1,4 @@
+<div class="c-f">
 <div class="example-container">
   <form [formGroup]="form">
   <mat-form-field class="example-full-width">
@@ -27,10 +28,11 @@
 
       <div class="button">
         <button mat-raised-button cdkFocusInitial type="submit" (click)="login()">login</button>
-        <button mat-raised-button >annulla</button>
+        <button mat-raised-button (click)="home()">annulla</button>
       </div>
 
   </form>
 
   <button mat-raised-button (click)="register()">Registrati</button>
+</div>
 </div>

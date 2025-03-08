@@ -31,7 +31,7 @@
         <td>{{discente.cognome + ' '}}</td>
         <td>{{discente.matricola? discente.matricola : ''}}</td>
         <td>{{discente.dataDiNascita? discente.dataDiNascita : ''}}</td>
-        <td [ngStyle]="calculateStyleColor(discente.corsiSeguiti)" ><mat-icon class="icon-stato">school</mat-icon></td>
+        <td [ngStyle]="calculateStyleColor(discente.corsiSeguiti)" ><mat-icon [title]="discente.corsiSeguiti.length > 0 ? 'Iscritto' : 'Non Iscritto'" class="icon-stato">school</mat-icon></td>
         <td>
           <mat-icon (click)="openDialogView(discente)">remove_red_eye</mat-icon>
           @if(authService.isAdmin()) {

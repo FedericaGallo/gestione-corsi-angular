@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HeaderComponent {
   isLoggedIn = signal<boolean>(false);
-  logButton = signal<string>("");
+  logButton = signal<string>('');
   entity: string = '';
   currentRoute: string = '';
   currentEntity = signal<string>('');
@@ -23,15 +23,15 @@ export class HeaderComponent {
     private authService: AuthService
   ) {}
   ngOnInit() {
-    this.authService.isLoggedIn$.subscribe((res)=> {
+    this.authService.isLoggedIn$.subscribe((res) => {
       console.log(res);
       this.isLoggedIn.set(res);
-      if(this.isLoggedIn()== true){
+      if (this.isLoggedIn() == true) {
         this.logButton.set('logOut');
-        }else {
+      } else {
         this.logButton.set('logIn');
-          }
-      });
+      }
+    });
     /* this.router.events.subscribe(() => {
       this.currentRoute = this.router.url;
       if (this.currentRoute.includes('docenti')) {
@@ -48,10 +48,19 @@ export class HeaderComponent {
     console.log(this.currentEntity());
   }
   logOut() {
+    this.currentEntity.set('');
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('ruolo');
     this.router.navigate(['/login']);
     this.authService.logOut();
+  }
+  register() {
+    this.currentEntity.set('');
+    this.router.navigate(['/register']);
+  }
+  home() {
+    this.currentEntity.set('');
+    this.router.navigate(['']);
   }
 }

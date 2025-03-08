@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Inserisci i dati del corso</h2>
+<mat-dialog-content class="dialog-content">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+    <mat-form-field class="example-full-width mt-3">
+      <mat-label>Discenti disponibili</mat-label>
+      <mat-select formControlName="discentiId" multiple>
+        @for (discente of data.discenti; track discente) {
+        <mat-option [value]="discente.id">{{discente.nome}} {{discente.cognome}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-dialog-actions>
+      <div class="button">
+        <button mat-raised-button cdkFocusInitial type="submit" (click)="onSubmit()">salva</button>
+        <button mat-raised-button (click)="onNoClick()">annulla</button>
+      </div>
+    </mat-dialog-actions>
+
+    <p *ngIf ="form.controls.discentiId.touched && form.controls.discentiId.invalid ">
+      inserisci descrizione di 6 caratteri
+    </p>
+  </form>
+</mat-dialog-content>
+
+
+

@@ -35,6 +35,9 @@ justify-content: flex-start;
 align-items: center;
 list-style-type: none;
 }
+#id {
+color: white;
+}
 a {
   cursor: pointer;
   text-decoration: none;

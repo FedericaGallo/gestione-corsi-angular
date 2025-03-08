@@ -73,7 +73,6 @@ export class DiscentiService {
   }
 
   public iscriviDiscente(id: number, corsi: number[]) {
-
     const url = `${this.baseUrl}/discente/${id}/iscrivi`;
     return this.httpClient.put<Discente>(url, corsi).pipe(
       tap((response) => {

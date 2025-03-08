@@ -8,11 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 export interface DialogData {
-  corsi: any;
+  discenti: any;
 }
 
 @Component({
-  selector: 'app-subscribe-discente',
+  selector: 'app-subscribe-to-course',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,14 +23,14 @@ export interface DialogData {
     MatDialogModule,
     MatButtonModule,
   ],
-  templateUrl: './subscribe-discente.component.html',
-  styleUrl: './subscribe-discente.component.css',
+  templateUrl: './subscribe-to-course.component.html',
+  styleUrl: './subscribe-to-course.component.css',
 })
-export class SubscribeDiscenteComponent {
-  readonly dialogRef = inject(MatDialogRef<SubscribeDiscenteComponent>);
+export class SubscribeToCourseComponent {
+  readonly dialogRef = inject(MatDialogRef<SubscribeToCourseComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   form = new FormGroup({
-    corsiSeguitiId: new FormControl('', {
+    discentiId: new FormControl('', {
       validators: [Validators.required],
     }),
   });

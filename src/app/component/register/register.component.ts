@@ -53,7 +53,7 @@ export class RegisterComponent {
     if (this.form.valid) {
       this.authService.register(this.form.value).subscribe({
         next: () => {
-          this.router.navigate(['login']);
+          this.router.navigate(['validation']);
         },
         error: (err) => {
           console.log(err);
@@ -61,7 +61,10 @@ export class RegisterComponent {
       });
     }
   }
-  validate() {
-    this.router.navigate(['validation']);
+  login() {
+    this.router.navigate(['login']);
+  }
+  home() {
+    this.router.navigate(['']);
   }
 }

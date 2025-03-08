@@ -1,4 +1,9 @@
-
+.c-f {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .example-container {
 margin: 0 auto;
 width: 500px;
